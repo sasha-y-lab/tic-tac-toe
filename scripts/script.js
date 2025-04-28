@@ -72,6 +72,38 @@ const gameboard = [];
   // UI will eventually need to render it.
   const getBoard = () => gameboard;
 
+
+
+
+/*
+** A Cell represents one "square" on the board and can have one of
+** 0: no token is in the square,
+** 1: Player One's token,
+** 2: Player 2's token
+*/
+
+function Cell() {
+    let value = "0";
+  
+    // Accept a player's token to change the value of the cell
+    const addMarker = (player) => {
+      value = player;
+    };
+  
+    // How we will retrieve the current value of this cell through closure
+  const getValue = () => value;
+
+  return {
+    addMarker,
+    getValue
+  };
+}
+
+
+
+
+
+
 // In order to drop a token, we need to find what the lowest point of the
   // selected column is, *then* change that cell's value to the player number
   const writeMarker = (column, player) => {
@@ -86,8 +118,11 @@ const gameboard = [];
     if (!availableCells.length) return;
 
     // Otherwise, I have a valid cell, the last one in the filtered array
-    const lowestRow = availableCells.length - 1;
-    gameboard[lowestRow][column].addMarker(player);
+   //const lowestRow = availableCells.length - 1;
+    //gameboard[lowestRow][column].addMarker(player);
+
+
+   gameboard[i][column].addMarker(player);
   };
 
 
@@ -116,8 +151,9 @@ const gameboard = [];
 ** 2: Player 2's token
 */
 
+/*
 function Cell() {
-    let value = 0;
+    let value = "0";
   
     // Accept a player's token to change the value of the cell
     const addMarker = (player) => {
@@ -132,6 +168,8 @@ function Cell() {
     getValue
   };
 }
+
+*/
 
 
 function GameController (player1Name, player2Name) {
@@ -151,18 +189,18 @@ function GameController (player1Name, player2Name) {
     };
   
     const getActivePlayer = () => activePlayer;
-    console.log(`${getActivePlayer().name}'s turn.`);
+    console.log(`${getActivePlayer().name}'s turn.`); // this prints first
   
 
-    const printNewRound = () => {
-        gameboard.printBoard();
-        console.log(`${getActivePlayer().name}'s turn.`);
+    const printNewRound = () => { // we are stuck here. the board is printed and the turn text prints
+        gameboard.printBoard(); // yes shows 3x3 grid with strings ready
+        console.log(`${getActivePlayer().name}'s turn.`); // shows
       };
 
 
-   const playRound = () => {
+   const playRound = (column) => {
   console.log(
-      `Writing ${getActivePlayer().name}'s ${marker} on the gameboard in ${column}.`
+      `Writing ${getActivePlayer().name}'s marker on the gameboard in ${column}.`
    );
 
    gameboard.writeMarker(column, getActivePlayer().marker);
@@ -176,6 +214,8 @@ function GameController (player1Name, player2Name) {
 
 };
   // Initial play game message
+
+  playRound();
   printNewRound();
 
   // For the console version, we will only use playRound, but we will need
