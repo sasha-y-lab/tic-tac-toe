@@ -57,6 +57,8 @@ function Gameboard() {
 const gameboard = [];
 
 
+
+
 // Create a 2d array that will represent the state of the game board
   // For this 2d array, row 0 will represent the top row and
   // column 0 will represent the left-most column.
@@ -64,7 +66,7 @@ const gameboard = [];
   for (let i = 0; i < rows; i++) {
     gameboard[i] = [];
     for (let j = 0; j < columns; j++) {
-      gameboard[i].push(Cell());
+      gameboard[i].push(GetValue());
     }
   }
 
@@ -74,44 +76,14 @@ const gameboard = [];
 
 
 
-
-/*
-** A Cell represents one "square" on the board and can have one of
-** 0: no token is in the square,
-** 1: Player One's token,
-** 2: Player 2's token
-*/
-
-function Cell() {
-    let value = "0";
-  
-    // Accept a player's token to change the value of the cell
-    const addMarker = (player) => {
-      value = player;
-    };
-  
-    // How we will retrieve the current value of this cell through closure
-  const getValue = () => value;
-
-  return {
-    addMarker,
-    getValue
-  };
-}
-
-
-
-
-
-
 // In order to drop a token, we need to find what the lowest point of the
   // selected column is, *then* change that cell's value to the player number
-  const writeMarker = (column, player) => {
+  const writeMarker = (column, value) => {
     // Our board's outermost array represents the row,
     // so we need to loop through the rows, starting at row 0,
     // find all the rows that don't have a token, then take the
     // last one, which will represent the bottom-most empty cell
-    const availableCells = gameboard.filter((row) => row[column].getValue() === 0).map(row => row[column]);
+    const availableCells = gameboard.filter((row) => row[column].GetValue()).map(row => row[column]);
 
     // If no cells make it through the filter, 
     // the move is invalid. Stop execution.
@@ -121,17 +93,21 @@ function Cell() {
    //const lowestRow = availableCells.length - 1;
     //gameboard[lowestRow][column].addMarker(player);
 
+   
 
-   gameboard[i][column].addMarker(player);
+   gameboard[i][column].GetValue(value);
+
+   
   };
 
+ 
 
 
   // This method will be used to print our board to the console.
   // It is helpful to see what the board looks like after each turn as we play,
   // but we won't need it after we build our UI
   const printBoard = () => {
-    const boardWithCellValues = gameboard.map((row) => row.map((cell) => cell.getValue()))
+    const boardWithCellValues = gameboard.map((row) => row.map((cell) => cell.GetValue(value)))
     console.log(boardWithCellValues);
   };
 
@@ -143,44 +119,41 @@ function Cell() {
 }
 
 
+function GetValue(value) {
+
+    //let value = "0";
+    value = `${GameController.marker}`;
 
 /*
-** A Cell represents one "square" on the board and can have one of
-** 0: no token is in the square,
-** 1: Player One's token,
-** 2: Player 2's token
+    const addMarker = (activeMarker) => {
+        activeMarker = `${getActivePlayer().marker}`;
+         value = activeMarker;
+        console.log(value);
+         return value;
+       };
+       console.log(value);
+const getCellValue = () => value;
+console.log(value);
+       return { addMarker, getCellValue };
 */
 
-/*
-function Cell() {
-    let value = "0";
-  
-    // Accept a player's token to change the value of the cell
-    const addMarker = (player) => {
-      value = player;
-    };
-  
-    // How we will retrieve the current value of this cell through closure
-  const getValue = () => value;
+return value;
+};
 
-  return {
-    addMarker,
-    getValue
-  };
-}
-
-*/
 
 
 function GameController (player1Name, player2Name) {
     // something here
    player1Name = "Player One"; 
    player2Name = "Player Two";
-   x = "x";
-   o = "o";
+  let x = "x";
+   let o = "o";
+
   
   const gameboard = Gameboard(); // [];
   const players = [{ name: player1Name, marker: x }, { name: player2Name, marker: o }];
+
+ 
   
    let activePlayer = players[0]; // this means Player One with X as s marker
   
@@ -201,7 +174,7 @@ function GameController (player1Name, player2Name) {
    const playRound = (column) => {
   console.log(
       `Writing ${getActivePlayer().name}'s marker on the gameboard in ${column}.`
-   );
+   ); // end of console log
 
    gameboard.writeMarker(column, getActivePlayer().marker);
 
@@ -227,5 +200,6 @@ function GameController (player1Name, player2Name) {
 
 }
 
+GameController();
 
-const game = GameController();
+//const game = GameController();
