@@ -138,6 +138,8 @@ function GameController (player1Name, player2Name) {
     // something here
    player1Name = "Player One"; 
    player2Name = "Player Two";
+   x = "x";
+   o = "o";
   
   const gameboard = Gameboard(); // [];
   const players = [{ name: player1Name, marker: x }, { name: player2Name, marker: o }];
@@ -172,10 +174,16 @@ function GameController (player1Name, player2Name) {
     switchPlayerTurn();
     printNewRound();
 
-  
-    return { getActivePlayer, switchPlayerTurn, players, gameboard , playRound };
+};
+  // Initial play game message
+  printNewRound();
 
-   }; 
+  // For the console version, we will only use playRound, but we will need
+  // getActivePlayer for the UI version, so I'm revealing it now
+
+    return { getActivePlayer, playRound };
+
+
 
 }
 
