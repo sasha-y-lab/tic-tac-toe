@@ -197,9 +197,17 @@ playRound();
   
   
 
- function playRound(marker) {
+ function playRound(row, column, activePlayer) {
 
-marker = player.getActivePlayer().marker;
+row = pushBoard.getArray();
+
+//console.log(row.row1);
+
+column = pushBoard.getArray();
+
+activePlayer = pushBoard.getActivePlayer();
+
+//marker = player.getActivePlayer().marker;
 
   /*
   const row1column1 = pushBoard.getArray().row1[0];
@@ -223,13 +231,15 @@ marker = player.getActivePlayer().marker;
 // maybe i need a for loop to iterate over the array
 // what is the array now?
 
-column = 3;
+//column = 3;
 
+/*
 const row1 = pushBoard.getArray().row1;
 const row2 = pushBoard.getArray().row2;
 const row3 = pushBoard.getArray().row3;
 
 const newboardArrays = [row1, row2, row3];
+*/
 
 
 //console.log(row1[0] == marker); // marker shows false because it's an object and you can't strict equal an object
@@ -237,23 +247,17 @@ const newboardArrays = [row1, row2, row3];
 
 const checkSq = check4Zero();
 
-if ((checkSq.checkRow1[0] === 0 && row1[0] === 1) || (checkSq.checkRow1[0] === 0 && row1[0] === 2)) {
+if (checkSq.includes(0)) {
 
-  newboardArrays[0].splice(1, 1, marker);
+ return pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
+}
+
+if (checkSq.includes(1) || checkSq.includes(2)) {
+
+  pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
+ } 
   
-
- } else if ((checkSq.checkRow1[1] === 0 && row1[1] === 1) || (checkSq.checkRow1[1] === 0 && row1[1] === 2)) {
-
-  newboardArrays[0].splice(2, 1, marker);
- }
- 
- 
- if ((row1[0] === 1 && row1[1] === 1) || (row1[0] === 1 && row1[1] === 2)) {
-  newboardArrays[1].splice(1, 1, marker);
-
- } else {
-  return;
- }
+}
  
  //console.log(newboardArrays[1].splice(1, 1, marker));
 
@@ -268,14 +272,14 @@ function check4Zero(checkRow1, checkRow2, checkRow3) {
 // normRow1 = row1.filter((index) => index === 0 || index === 1 || index === 2).map((index) => index); // prints correct row 1 array
 // console.log(normRow1);
 
- checkRow1 = row1.filter((value) => value === 0).map((value) => value);
+ checkRow1 = pushBoard.getArray().row1.filter((value) => value === 0).map((value) => value);
  //console.log(checkRow1);
 
- checkRow2 = row2.filter((value) => value === 0).map((value) => value);
+ checkRow2 = pushBoard.getArray().row2.filter((value) => value === 0).map((value) => value);
  //console.log(checkRow2);
 
 
- checkRow3 = row3.filter((value) => value === 0).map((value) => value);
+ checkRow3 = pushBoard.getArray().row3.filter((value) => value === 0).map((value) => value);
  //console.log(checkRow3);
 
 
@@ -431,7 +435,7 @@ if (row1column1 === 0) {
   
 } // play rounds
   
-} // for loop
+//} // for loop
 
 } // end of turns
 
