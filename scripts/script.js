@@ -182,7 +182,7 @@ const player = players();
 
 
 
-for (i = 0; i < 9; i++) {
+for (i = 0; i < 8; i++) {
 
    // don't put login in if statements. everything is navigating from before the statements.
   //turn;
@@ -211,124 +211,142 @@ playRound();
   const row3column2 = pushBoard.getArray().row3[1];
   const row3column3 = pushBoard.getArray().row3[2];
 
+// You should be checking for all winning 3-in-a-rows and ties. 
+// You can call your functions and pass arguments to them to play 
+// the game yourself and check if everything is working
+
+// maybe i need a for loop to iterate over the array
+// what is the array now?
+
+const newboardArray = [pushBoard.getArray().row1, pushBoard.getArray().row2, pushBoard.getArray().row3]
+
+for (j = 0; j < 3; j++) {
+newboardArray[j]; 
+  for (k = 0; k < 3; k++) {
+
+    
+
 if (row1column1 === 0) {
-  pushBoard.getArray().row1.splice(0, 1, player.getActivePlayer().marker);
-  
+ // pushBoard.getArray().row1.splice(0, 1, player.getActivePlayer().marker);
+ newboardArray[j].push(player.getActivePlayer().marker);
   
 
   if (row1column1 === 1 || row1column1 === 2) {
-
+    newboardArray[j].push(player.getActivePlayer().marker);
     
-    pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
+   // pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
     
   }
 }
   else if (row1column2 === 0) {
    
-
-    pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
     
 
 
     if (row1column2 === 1 || row1column2 === 2) {
-      
-      pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+     // pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
 
   
   } else if (row1column3 === 0) {
-    
-    pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
     
 
     if (row1column3 === 1 || row1column3 === 2) {
 
-      
-      pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+     // pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
    
   
     }
 
   } else if (row2column1 === 0) {
-    
-    pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
     
 
     if (row2column2 === 1 || row2column2 === 2) {
-      
-      pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+     // pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
      
   
     }
   
   } else if (row2column2 === 0) {
-   
-    pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
     
 
     if (row2column2 === 1 || row2column2 === 2) {
-     
-      pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+     // pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
   
   } else if (row2column3 === 0) {
-    
-    pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
     
 
     if (row2column3 === 1 || row2column3 === 2) {
-      
-      pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+     // pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
      
   
     }
 
   } else if (row3column1 === 0) {
-   
-    pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
   
 
     if (row3column2 === 1 || row3column2 === 2) {
-      
-      pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+    //  pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
      
   
     }
   
   } else if (row3column2 === 0) {
-    
-    pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
     
 
     if (row3column2 === 1 || row3column2 === 2) {
-   
-      pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
+      newboardArray[j].push(player.getActivePlayer().marker);
+     // pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
   
   } else if (row3column3 === 0) {
-   
-    pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
+    newboardArray[j].push(player.getActivePlayer().marker);
+   // pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
     
-
-  } else {
+      if (row3column3 === 1 || row3column3 === 2) {
+   console.log("Game Over");
+  } 
+} 
+ else {
     return;
   }
   
-
+  } // third for loop
   
-  
+} // second for loop 
   
 } // end of for loop
 
 } // end of play round
 
-console.log("Game Over");
+
 
 
   } //end of turns
