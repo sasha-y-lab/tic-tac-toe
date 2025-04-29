@@ -134,61 +134,82 @@ if (row3column1.length === 0) {
 
     const thePlayers = [{ name: player1Name, marker: 1 }, { name: player2Name, marker: 2 }];
 
-    const getActivePlayer = () => thePlayers[0];
+    const player1 = thePlayers[0].name;
+
+    // console.log(player1); prints the right name
+
+    const player2 = thePlayers[1].name;
+
+    // console.log(player2);
+
+    const player1Marker = thePlayers[0].marker;
+   // console.log(player1Marker); prints the right marker
+
+    const player2Marker = thePlayers[1].marker;
+    //console.log(player2Marker);
+
+    const getActivePlayer = () => {
+      
+      return player1;
+    }
+
+    const getActiveMarker = () => {
+      return player1Marker;
+    }
 
     
 
     const switchPlayerTurn = () => {
 
-      getActivePlayer() = getActivePlayer() === thePlayers[0] ? thePlayers[1] : thePlayers[0];
+     getActivePlayer() = getActivePlayer() === player1 ? player2 : player1; 
+      getActiveMarker() = getActiveMarker() === player1Marker ? player2Marker: player1Marker;
+
+      return { getActiveMarker, getActivePlayer };
 
     }
 
-    console.log("Player 1 usings 1 for X and Player 2 uses 2 for O.")
-
-    console.log(`${getActivePlayer().name}'s turn.`);
-
-    console.log(`${getActivePlayer().name} places an ${getActivePlayer().marker} on the board`);
-
-
-
-    const pushBoard = gameboard();
-
-    pushBoard.pushToArray(getActivePlayer().marker);
-    console.log(pushBoard.getArray());
-    
-
-
-    return { getActivePlayer, switchPlayerTurn };
-
-    
+    return { getActivePlayer, getActiveMarker, switchPlayerTurn } 
+  
+      
   }
+  
+ // players(); prints everything twice
 
-  players();
-
-
-
-
+  
 
 
-function GameController () {
+
+
+
+
+function gameController () {
    
 
 
   
-  const board = gameboard(); // [];
+  //const board = gameboard(); // [];
 
+const player = players();
+  
 
   
-  
+  console.log("Player 1 uses 1 for X and Player 2 uses 2 for O.")
+
+  console.log(`${player.getActivePlayer()}'s turn.`);
+
+  console.log(`${player.getActivePlayer()} places an ${player.getActiveMarker()} on the board`);
    
-    
+  const pushBoard = gameboard();
+
+  pushBoard.pushToArray(player.getActiveMarker());
+  console.log(pushBoard.getArray());
   
 
-  return board;
+
+ // return board;
 
 }
 
-GameController();
+gameController();
 
 //const game = GameController();
