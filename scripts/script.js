@@ -50,153 +50,98 @@
 
 //Focus on getting a working game in the console first. no logic for winning yet
 
-function Gameboard() {
-
-    const rows = 3;
-  const columns = 3;
-const gameboard = [];
-
-
-
-
-// Create a 2d array that will represent the state of the game board
-  // For this 2d array, row 0 will represent the top row and
-  // column 0 will represent the left-most column.
-  // This nested-loop technique is a simple and common way to create a 2d array.
-  for (let i = 0; i < rows; i++) {
-    gameboard[i] = [];
-    for (let j = 0; j < columns; j++) {
-      gameboard[i].push(GetValue());
-    }
-  }
-
-  // This will be the method of getting the entire board that our
-  // UI will eventually need to render it.
-  const getBoard = () => gameboard;
-
-
-
-// In order to drop a token, we need to find what the lowest point of the
-  // selected column is, *then* change that cell's value to the player number
-  const writeMarker = (column, value) => {
-    // Our board's outermost array represents the row,
-    // so we need to loop through the rows, starting at row 0,
-    // find all the rows that don't have a token, then take the
-    // last one, which will represent the bottom-most empty cell
-    const availableCells = gameboard.filter((row) => row[column].GetValue()).map(row => row[column]);
-
-    // If no cells make it through the filter, 
-    // the move is invalid. Stop execution.
-    if (!availableCells.length) return;
-
-    // Otherwise, I have a valid cell, the last one in the filtered array
-   //const lowestRow = availableCells.length - 1;
-    //gameboard[lowestRow][column].addMarker(player);
+function gameboard() {
 
    
+const board = { row1: ["", "", ""], row2: ["", "", ""], row3: ["", "", ""] };
 
-   gameboard[i][column].GetValue(value);
+//console.log(board);
 
-   
-  };
+const printBoard = () => {
 
- 
-
-
-  // This method will be used to print our board to the console.
-  // It is helpful to see what the board looks like after each turn as we play,
-  // but we won't need it after we build our UI
-  const printBoard = () => {
-    const boardWithCellValues = gameboard.map((row) => row.map((cell) => cell.GetValue(value)))
-    console.log(boardWithCellValues);
-  };
-
-// Here, we provide an interface for the rest of our
-  // application to interact with the board
-  return { getBoard, writeMarker, printBoard };
-
-
+  console.log(board.row1);
+  console.log(board.row2);
+  console.log(board.row3);
 }
 
+printBoard();
 
-function GetValue(value) {
-
-    //let value = "0";
-    value = `${GameController.marker}`;
-
-/*
-    const addMarker = (activeMarker) => {
-        activeMarker = `${getActivePlayer().marker}`;
-         value = activeMarker;
-        console.log(value);
-         return value;
-       };
-       console.log(value);
-const getCellValue = () => value;
-console.log(value);
-       return { addMarker, getCellValue };
-*/
-
-return value;
+return {
+  pushToArray: function(value) {
+    board.row1.push(value);
+    board.row2.push(value);
+    board.row3.push(value);
+  },
+  getArray: function() {
+    return board;
+  }, printBoard
 };
 
+   
+//return printBoard;
 
-
-function GameController (player1Name, player2Name) {
-    // something here
-   player1Name = "Player One"; 
-   player2Name = "Player Two";
-  let x = "x";
-   let o = "o";
-
-  
-  const gameboard = Gameboard(); // [];
-  const players = [{ name: player1Name, marker: x }, { name: player2Name, marker: o }];
-
+  } 
+gameboard();
  
+
+
+  function players(player1Name, player2Name) {
+
+    player1Name = "Player One"; 
+    player2Name = "Player Two";
+
+    const thePlayers = [{ name: player1Name, marker: "x" }, { name: player2Name, marker: "o" }];
+
+    const getActivePlayer = () => thePlayers[0];
+
+    //const getMarker = () => thePlayers[0].marker;
+
+    const switchPlayerTurn = () => {
+
+      getActivePlayer() = getActivePlayer() === thePlayers[0] ? thePlayers[1] : thePlayers[0];
+
+    }
+
+    console.log(`${getActivePlayer().name}'s turn.`);
+
+    console.log(`${getActivePlayer().name} places an ${getActivePlayer().marker} on the board`);
+
+
+
+    const pushBoard = gameboard();
+
+    pushBoard.pushToArray(getActivePlayer().marker);
+    console.log(pushBoard.getArray());
+    
+
+
+    return { getActivePlayer, switchPlayerTurn };
+
+    
+  }
+
+  players();
+
+
+
+
+
+
+function GameController () {
+   
+
+
   
-   let activePlayer = players[0]; // this means Player One with X as s marker
+  const board = gameboard(); // [];
+
+
   
-   const switchPlayerTurn = () => {
-      activePlayer = activePlayer === players[0] ? players[1] : players[0];
-    };
   
-    const getActivePlayer = () => activePlayer;
-    console.log(`${getActivePlayer().name}'s turn.`); // this prints first
+   
+    
   
 
-    const printNewRound = () => { // we are stuck here. the board is printed and the turn text prints
-        gameboard.printBoard(); // yes shows 3x3 grid with strings ready
-        console.log(`${getActivePlayer().name}'s turn.`); // shows
-      };
-
-
-   const playRound = (column) => {
-  console.log(
-      `Writing ${getActivePlayer().name}'s marker on the gameboard in ${column}.`
-   ); // end of console log
-
-   gameboard.writeMarker(column, getActivePlayer().marker);
-
-/*  This is where we would check for a winner and handle that logic,
-        such as a win message. */
-
-    // Switch player turn
-    switchPlayerTurn();
-    printNewRound();
-
-};
-  // Initial play game message
-
-  playRound();
-  printNewRound();
-
-  // For the console version, we will only use playRound, but we will need
-  // getActivePlayer for the UI version, so I'm revealing it now
-
-    return { getActivePlayer, playRound };
-
-
+  return board;
 
 }
 
