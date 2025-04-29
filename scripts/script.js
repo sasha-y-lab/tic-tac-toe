@@ -158,10 +158,10 @@ return value;
 
     const switchPlayerTurn = () => {
 
-     getActivePlayer() = getActivePlayer() === player1 ? player2 : player1; 
-      getActiveMarker() = getActiveMarker() === player1Marker ? player2Marker: player1Marker;
+    let switchPlayer = player1 ? player2 : player1; 
+    let switchMarker =  player1Marker ? player2Marker: player1Marker;
 
-      return { getActiveMarker, getActivePlayer };
+      return { switchPlayer, switchMarker };
 
     }
 
@@ -205,7 +205,14 @@ const player = players();
   pushBoard.pushToArray(player.getActiveMarker());
   console.log(pushBoard.getArray());
   
+player.switchPlayerTurn().switchPlayer;
 
+console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
+
+  console.log(`${player.switchPlayerTurn().switchPlayer} places an ${player.switchPlayerTurn().switchMarker} on the board`);
+
+  pushBoard.pushToArray(player.switchPlayerTurn().switchMarker);
+  console.log(pushBoard.getArray());
 
   return { player, pushBoard };
 
