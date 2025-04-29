@@ -65,19 +65,7 @@ console.log(board.row2);
 console.log(board.row3); // this prints the original board so maybe it's overwriting?
 */
 
-let row1column1 = board.row1[0];
-let row1column2 = board.row1[1];
-let row1column3 = board.row1[2];
-
-let row2column1 = board.row2[0];
-let row2column2 = board.row2[1];
-let row2column3 = board.row2[2];
-
-let row3column1 = board.row3[0];
-let row3column2 = board.row3[1];
-let row3column3 = board.row3[2];
-
-//console.log(row1column1);
+const row1column1 = board.row1[0];
 
 
 return {
@@ -209,16 +197,116 @@ const player = players();
 
   
   console.log(pushBoard.printBoard()); // does it print the original array? no
-  
-player.switchPlayerTurn().switchPlayer;
+
+  takeTurns();
+
+
+  const takeTurns = () => {
+
+    player.switchPlayerTurn().switchPlayer;
 
 console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
 
   console.log(`${player.switchPlayerTurn().switchPlayer} places an ${player.switchPlayerTurn().switchMarker} on the board`);
 
-  pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+  const row1column1 = getArray().row1[0];
+  const row1column2 = getArray().row1[1];
+  const row1column3 = getArray().row1[2];
+
+  const row2column1 = getArray().row2[0];
+  const row2column2 = getArray().row2[1];
+  const row2column3 = getArray().row2[2];
+
+  const row3column1 = getArray().row3[0];
+  const row3column2 = getArray().row3[1];
+  const row3column3 = getArray().row3[2];
+
+if (row1column1 === 0) {
+  pushBoard.getArray().row1.splice(0, 1, player.switchPlayerTurn().switchMarker);
+
+  if (row1column1 === 1 || row1column1 === 2) {
+    pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+
+  }
+}
+  else if (row1column2 === 0) {
+    pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row1column2 === 1 || row1column2 === 2) {
+      pushBoard.getArray().row1.splice(2, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+
+  
+  } else if (row1column3 === 0) {
+    pushBoard.getArray().row1.splice(2, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row1column3 === 1 || row1column3 === 2) {
+      pushBoard.getArray().row2.splice(0, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+
+  } else if (row2column1 === 0) {
+    pushBoard.getArray().row2.splice(0, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row2column2 === 1 || row2column2 === 2) {
+      pushBoard.getArray().row2.splice(1, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+  
+  } else if (row2column2 === 0) {
+    pushBoard.getArray().row2.splice(1, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row2column2 === 1 || row2column2 === 2) {
+      pushBoard.getArray().row2.splice(2, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+  
+  } else if (row2column3 === 0) {
+    pushBoard.getArray().row2.splice(2, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row2column2 === 1 || row2column2 === 2) {
+      pushBoard.getArray().row3.splice(0, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+
+  } else if (row3column1 === 0) {
+    pushBoard.getArray().row3.splice(0, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row3column2 === 1 || row3column2 === 2) {
+      pushBoard.getArray().row3.splice(1, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+  
+  } else if (row3column2 === 0) {
+    pushBoard.getArray().row3.splice(1, 1, player.switchPlayerTurn().switchMarker);
+
+    if (row3column2 === 1 || row3column2 === 2) {
+      pushBoard.getArray().row3.splice(2, 1, player.switchPlayerTurn().switchMarker);
+  
+    }
+  
+  } else if (row3column3 === 0) {
+    pushBoard.getArray().row3.splice(2, 1, player.switchPlayerTurn().switchMarker);
+    if (row3column2 === 1 || row3column2 === 2) {
+      console.log("Game Over");
+  
+    }
+
+  } else {
+    return;
+  }
+  
+
+  
   
   console.log(pushBoard.printBoard());
+
+
+  }
+  
+
+
 
 
 
