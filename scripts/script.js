@@ -144,12 +144,14 @@ return value;
       return player1Marker;
     }
 
-    
+    let switchMarker = getActiveMarker();
+
+    let switchPlayer = getActivePlayer();
 
     const switchPlayerTurn = () => {
 
-    let switchPlayer = player1 ? player2 : player1; 
-    let switchMarker =  player1Marker ? player2Marker: player1Marker;
+     switchPlayer = switchPlayer === player1 ? player2 : player1; 
+     switchMarker = switchMarker ===  player1Marker ? player2Marker: player1Marker;
 
       return { switchPlayer, switchMarker };
 
@@ -203,13 +205,23 @@ const player = players();
 
   function takeTurns() {
 
-for (i = 0; i < 9; i++) {
+let turn = player.switchPlayerTurn().switchPlayer;
 
-    player.switchPlayerTurn().switchPlayer;
+for (i = 0; i < 8; i++) {
+
+   // don't put login in if statements. everything is navigating from before the statements.
+  console.log(turn);
 
 console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
 
-  console.log(`${player.switchPlayerTurn().switchPlayer} places an ${player.switchPlayerTurn().switchMarker} on the board`);
+  console.log(`${player.getActivePlayer()} places an ${player.getActiveMarker()} on the board`);
+playRound();
+
+  console.log(pushBoard.printBoard()); 
+
+  
+
+ function playRound() {
 
   const row1column1 = pushBoard.getArray().row1[0];
   const row1column2 = pushBoard.getArray().row1[1];
@@ -225,73 +237,111 @@ console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
 
 if (row1column1 === 0) {
   pushBoard.getArray().row1.splice(0, 1, player.switchPlayerTurn().switchMarker);
+  
+  
 
   if (row1column1 === 1 || row1column1 === 2) {
-    pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
 
+    
+    pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    
   }
 }
   else if (row1column2 === 0) {
+   
+
     pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    
+
 
     if (row1column2 === 1 || row1column2 === 2) {
+      
       pushBoard.getArray().row1.splice(2, 1, player.switchPlayerTurn().switchMarker);
+      
   
     }
 
   
   } else if (row1column3 === 0) {
+    
     pushBoard.getArray().row1.splice(2, 1, player.switchPlayerTurn().switchMarker);
+    
 
     if (row1column3 === 1 || row1column3 === 2) {
+
+      
       pushBoard.getArray().row2.splice(0, 1, player.switchPlayerTurn().switchMarker);
+   
   
     }
 
   } else if (row2column1 === 0) {
+    
     pushBoard.getArray().row2.splice(0, 1, player.switchPlayerTurn().switchMarker);
+    
 
     if (row2column2 === 1 || row2column2 === 2) {
+      
       pushBoard.getArray().row2.splice(1, 1, player.switchPlayerTurn().switchMarker);
+     
   
     }
   
   } else if (row2column2 === 0) {
+   
     pushBoard.getArray().row2.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    
 
     if (row2column2 === 1 || row2column2 === 2) {
+     
       pushBoard.getArray().row2.splice(2, 1, player.switchPlayerTurn().switchMarker);
+      
   
     }
   
   } else if (row2column3 === 0) {
+    
     pushBoard.getArray().row2.splice(2, 1, player.switchPlayerTurn().switchMarker);
+    
 
     if (row2column2 === 1 || row2column2 === 2) {
+      
       pushBoard.getArray().row3.splice(0, 1, player.switchPlayerTurn().switchMarker);
+     
   
     }
 
   } else if (row3column1 === 0) {
+   
     pushBoard.getArray().row3.splice(0, 1, player.switchPlayerTurn().switchMarker);
+  
 
     if (row3column2 === 1 || row3column2 === 2) {
+      
       pushBoard.getArray().row3.splice(1, 1, player.switchPlayerTurn().switchMarker);
+     
   
     }
   
   } else if (row3column2 === 0) {
+    
     pushBoard.getArray().row3.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    
 
     if (row3column2 === 1 || row3column2 === 2) {
+   
       pushBoard.getArray().row3.splice(2, 1, player.switchPlayerTurn().switchMarker);
+      
   
     }
   
   } else if (row3column3 === 0) {
+   
     pushBoard.getArray().row3.splice(2, 1, player.switchPlayerTurn().switchMarker);
-    if (row3column2 === 1 || row3column2 === 2) {
-      console.log("Game Over");
+    
+
+    if (row3column3 === 1 || row3column3 === 2) {
+     console.log("Game Over");
   
     }
 
@@ -302,10 +352,12 @@ if (row1column1 === 0) {
 
   
   
-  console.log(pushBoard.printBoard());
+  
 } // end of for loop
 
-  }
+} // end of play round
+
+  } //end of turns
   
  
 
