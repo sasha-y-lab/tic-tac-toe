@@ -228,11 +228,11 @@ newboardArray[j];
 
 if (row1column1 === 0) {
  // pushBoard.getArray().row1.splice(0, 1, player.getActivePlayer().marker);
- newboardArray[j].push(player.getActivePlayer().marker);
+ newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
   
 
   if (row1column1 === 1 || row1column1 === 2) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
     
    // pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
     
@@ -240,13 +240,13 @@ if (row1column1 === 0) {
 }
   else if (row1column2 === 0) {
    
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
     
 
 
     if (row1column2 === 1 || row1column2 === 2) {
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
      // pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
       
   
@@ -254,80 +254,80 @@ if (row1column1 === 0) {
 
   
   } else if (row1column3 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
     
 
     if (row1column3 === 1 || row1column3 === 2) {
 
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
      // pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
    
   
     }
 
   } else if (row2column1 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
     
 
     if (row2column2 === 1 || row2column2 === 2) {
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
      // pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
      
   
     }
   
   } else if (row2column2 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
     
 
     if (row2column2 === 1 || row2column2 === 2) {
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
      // pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
   
   } else if (row2column3 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
     
 
     if (row2column3 === 1 || row2column3 === 2) {
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
      // pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
      
   
     }
 
   } else if (row3column1 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
   
 
     if (row3column2 === 1 || row3column2 === 2) {
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
     //  pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
      
   
     }
   
   } else if (row3column2 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
     
 
     if (row3column2 === 1 || row3column2 === 2) {
-      newboardArray[j].push(player.getActivePlayer().marker);
+      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
      // pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
   
   } else if (row3column3 === 0) {
-    newboardArray[j].push(player.getActivePlayer().marker);
+    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
    // pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
     
       if (row3column3 === 1 || row3column3 === 2) {
