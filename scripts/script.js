@@ -198,10 +198,12 @@ const player = players();
   
   console.log(pushBoard.printBoard()); // does it print the original array? no
 
+  
   takeTurns();
 
+  function takeTurns() {
 
-  const takeTurns = () => {
+for (i = 0; i < 9; i++) {
 
     player.switchPlayerTurn().switchPlayer;
 
@@ -209,17 +211,17 @@ console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
 
   console.log(`${player.switchPlayerTurn().switchPlayer} places an ${player.switchPlayerTurn().switchMarker} on the board`);
 
-  const row1column1 = getArray().row1[0];
-  const row1column2 = getArray().row1[1];
-  const row1column3 = getArray().row1[2];
+  const row1column1 = pushBoard.getArray().row1[0];
+  const row1column2 = pushBoard.getArray().row1[1];
+  const row1column3 = pushBoard.getArray().row1[2];
 
-  const row2column1 = getArray().row2[0];
-  const row2column2 = getArray().row2[1];
-  const row2column3 = getArray().row2[2];
+  const row2column1 = pushBoard.getArray().row2[0];
+  const row2column2 = pushBoard.getArray().row2[1];
+  const row2column3 = pushBoard.getArray().row2[2];
 
-  const row3column1 = getArray().row3[0];
-  const row3column2 = getArray().row3[1];
-  const row3column3 = getArray().row3[2];
+  const row3column1 = pushBoard.getArray().row3[0];
+  const row3column2 = pushBoard.getArray().row3[1];
+  const row3column3 = pushBoard.getArray().row3[2];
 
 if (row1column1 === 0) {
   pushBoard.getArray().row1.splice(0, 1, player.switchPlayerTurn().switchMarker);
@@ -301,11 +303,11 @@ if (row1column1 === 0) {
   
   
   console.log(pushBoard.printBoard());
-
+} // end of for loop
 
   }
   
-
+ 
 
 
 
