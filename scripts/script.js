@@ -85,23 +85,15 @@ if (row1column1 === 0) { // to check if array is filled with a 0
 
 } else if (row1column3 === 0) {
   board.row1.splice(2, 1, value);
-} else {
-  return;
-}
-
-if (row2column1 === 0) {
+} else if (row2column1 === 0) {
   board.row2.splice(0, 1, value);
 
 } else if (row2column2 === 0) {
-  board.row3.splice(1, 1, value);
+  board.row2.splice(1, 1, value);
 
 } else if (row2column3 === 0) {
   board.row2.splice(2, 1, value);
-} else {
-  return;
-}
-
-if (row3column1 === 0) {
+} else if (row3column1 === 0) {
   board.row3.splice(0, 1, value);
 
 } else if (row3column2 === 0) {
