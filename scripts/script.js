@@ -68,47 +68,52 @@ const row3column1 = board.row3[0];
 const row3column2 = board.row3[1];
 const row3column3 = board.row3[2];
 
-
+//console.log(row1column1);
 
 return {
   pushToArray: function(value) {
 
-if (row1column1.length === 0) { // to check if array is empty
-  row1column1.splice(0, 1, value);
 
-} else if (row1column2.length === 0) {
-  row1column2.splice(1, 1, value);
 
-} else if (row1column3.length === 0) {
-  row1column3.splice(2, 1, value);
+
+
+if (row1column1 === 0) { // to check if array is filled with a 0
+  board.row1.splice(0, 1, value);
+
+} else if (row1column2 === 0) {
+  board.row1.splice(1, 1, value);
+
+} else if (row1column3 === 0) {
+  board.row1.splice(2, 1, value);
 } else {
   return;
 }
 
-if (row2column1.length === 0) {
-  row2column1.splice(0, value, 1);
+if (row2column1 === 0) {
+  board.row2.splice(0, 1, value);
 
-} else if (row2column2.length === 0) {
-  row2column2.splice(1, 1, value);
+} else if (row2column2 === 0) {
+  board.row3.splice(1, 1, value);
 
-} else if (row2column3.length === 0) {
-  row2column3.splice(2, 1, value);
+} else if (row2column3 === 0) {
+  board.row2.splice(2, 1, value);
 } else {
   return;
 }
 
-if (row3column1.length === 0) {
-  row3column1.splice(0, 1, value);
+if (row3column1 === 0) {
+  board.row3.splice(0, 1, value);
 
-} else if (row3column2.length === 0) {
-  row3column2.splice(1, 1, value);
+} else if (row3column2 === 0) {
+  board.row3.splice(1, 1, value);
 
-} else if (row3column3.length === 0) {
-  row3column3.splice(2, 1, value);
+} else if (row3column3 === 0) {
+  board.row3.splice(2, 1, value);
 } else {
   return;
 }
-    
+
+return value;
     
   },
   getArray: function() {
@@ -197,7 +202,11 @@ const player = players();
 
   console.log(`${player.getActivePlayer()}'s turn.`);
 
+  //console.log(player.getActivePlayer()); // yes correct player1
+
   console.log(`${player.getActivePlayer()} places an ${player.getActiveMarker()} on the board`);
+
+  //console.log(player.getActiveMarker()); // yes correct 1
    
   const pushBoard = gameboard();
 
@@ -206,7 +215,7 @@ const player = players();
   
 
 
- // return board;
+  return { player, pushBoard };
 
 }
 
