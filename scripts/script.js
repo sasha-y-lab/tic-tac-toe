@@ -3,11 +3,7 @@
 // to want an object to control the flow of the game itself.
 
 // ** this means I need:
-// 1. a Gameboard Object variable, with an empty gameboard array with empty objects enclosed ? and is a module
-// const gameboard = []; ?
-// 2. A Player object variable to hold two player objects: Player 1, Player 2 - i guess this needs an array
-// as well as X or O
-// const players = [{ name: player1Name, marker: x }, { name: player2Name, marker: o }];
+
 // 3. A GameController object for controlling the flow and state of the game's turns, 
 // as well as if whether anybody has won the game or any other logic?
 
@@ -122,4 +118,97 @@ return {createPlayer, player1, player2 };
 
 }
 
-gamePlayers();
+//gamePlayers();
+
+
+
+// what next? 3. gameController for controlling the flow and state of the game's turns, 
+// as well as if whether anybody has won the game or any other logic
+
+// not an instance called once? no. it may need to be called multiple times with arguments.
+
+
+// so create a factory function
+
+function gameController(playerName, playerMarker, playerPosition) {
+
+// what is the logic in here?
+
+// 1. start game
+// 2. Player 1 goes
+// 3. player 2 goes
+// 4. alternate 7 more times (a total of 9 turns)
+// 5. check who won
+// 6. declare winner
+
+// what are the parameters? you need a name, marker value, and position (coordinates) where
+//  you're dropping the marker
+
+// playerName needs an active player to work
+
+//playerMarker needs an active marker
+
+// position needs coordinates of the board
+
+// so first, 1. start game. 
+
+console.log("Player One will use 1 to mark on the board, while Player Two will use 2 to mark on the board"); // statement for clarity
+
+// how to start? someone has to go first. First is Player one.
+
+// first we need to write how to make player 1 the active player.
+
+const thePlayers = gamePlayers();
+
+let activePlayer = thePlayers.player1.name;
+
+let activeMarker = thePlayers.player1.marker;
+
+const p1 = thePlayers.player1.name;
+  const p2 = thePlayers.player2.name;
+
+  const p1mkr = thePlayers.player1.marker;
+  const p2mkr = thePlayers.player2.marker;
+
+//console.log(activePlayer); // yes this is Player One.
+
+const switchPlayers = function() {
+
+  activePlayer = activePlayer === p1 ? p2 : p1;
+
+  activeMarker = activeMarker === p1mkr ? p2mkr : p1mkr;
+
+  return { activePlayer, activeMarker, p1, p2, p2mkr, p1mkr };
+
+}
+
+//console.log(switchPlayers());
+
+let getActivePlayer = switchPlayers().activePlayer;
+let getActiveMarker = switchPlayers().activeMarker;
+
+// so now start with Player 1
+
+console.log(`${getActivePlayer}'s turn.`);
+
+console.log(`${getActivePlayer} writes ${getActiveMarker} at position`);
+
+
+// we need a position function or expression or calculation
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+gameController();
+
