@@ -28,16 +28,72 @@
 
 const GameBoard = (function() {
 
-// set up the empty array
+// set up the empty array (not really empty)
 
-const gameBoard = [];
+  let gameBoard = [];
 
  // set up a factory function for gameBoard
 
- function createGameBoard (name) {
-  const discordName = "@" + name;
-  return { name, discordName };
+ function createGameBoard(row, column, value) {
+  
+
+  row = 3;
+  column = 3;
+  value = 0;
+
+// to create a 2d array you need 2 for loops nested
+
+for (i = 0; i < row; i++) {
+  // iterate the actual array
+gameBoard[i] = [];
+console.log(gameBoard[i]); // undefined
+
+for (j = 0; j < column; j++) {
+// now add columns and rows
+gameBoard[i][j] = value;
+//gameBoard.push(marker);
+
+//console.log(gameBoard[i][j] = value); // output 0
+
+//console.log(gameBoard); //output new array filled with zeros
+
+}
+
 }
 
 
+  return { row, column, value, gameBoard };
+}
+
+
+// now that the array is created and essentially the gameboard is created
+// now I need to print the gameboard, so set up another factor function
+
+function printGameBoard() {
+
+  const printBoard = createGameBoard();
+
+  console.log(printBoard.gameBoard); // array initially filled with zeros
+
+  // [[0,0,0], [0,0,0], [0,0,0]]
+
+  //lined up like this
+
+ // [0,0,0]
+ // [0,0,0]
+ // [0,0,0]
+
+  return printBoard;
+
+}
+//printGameBoard();
+
+
+return { createGameBoard, printGameBoard };
+
 })(); // this is an immediately invoked function which is a module
+
+
+// now that the array was successfully created, what is next?
+// next I need to createPlayers. Is it a single instance called? no. so no module. Just factory function
+
