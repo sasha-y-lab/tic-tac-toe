@@ -121,43 +121,17 @@ return value;
 
     const thePlayers = [{ name: player1Name, marker: 1 }, { name: player2Name, marker: 2 }];
 
-    const player1 = thePlayers[0].name;
 
-    // console.log(player1); prints the right name
-
-    const player2 = thePlayers[1].name;
-
-    // console.log(player2);
-
-    const player1Marker = thePlayers[0].marker;
-   // console.log(player1Marker); prints the right marker
-
-    const player2Marker = thePlayers[1].marker;
-    //console.log(player2Marker);
-
-    const getActivePlayer = () => {
-      
-      return player1;
-    }
-
-    const getActiveMarker = () => {
-      return player1Marker;
-    }
-
-    let switchMarker = getActiveMarker();
-
-    let switchPlayer = getActivePlayer();
+    let activePlayer = thePlayers[0]; // this means Player One with 1 for x as a marker starts first
 
     const switchPlayerTurn = () => {
+        activePlayer = activePlayer === thePlayers[0] ? thePlayers[1] : thePlayers[0];
+      };
+    
+      const getActivePlayer = () => activePlayer;
+      
 
-     switchPlayer = switchPlayer === player1 ? player2 : player1; 
-     switchMarker = switchMarker ===  player1Marker ? player2Marker: player1Marker;
-
-      return { switchPlayer, switchMarker };
-
-    }
-
-    return { getActivePlayer, getActiveMarker, switchPlayerTurn } 
+    return { getActivePlayer, switchPlayerTurn } 
   
       
   }
@@ -184,17 +158,17 @@ const player = players();
   
   console.log("Player 1 uses 1 for X and Player 2 uses 2 for O.")
 
-  console.log(`${player.getActivePlayer()}'s turn.`);
+  console.log(`${player.getActivePlayer().name}'s turn.`);
 
   //console.log(player.getActivePlayer()); // yes correct player1
 
-  console.log(`${player.getActivePlayer()} places an ${player.getActiveMarker()} on the board`);
+  console.log(`${player.getActivePlayer().name} places an ${player.getActivePlayer().marker} on the board`);
 
   //console.log(player.getActiveMarker()); // yes correct 1
    
   const pushBoard = gameboard();
 
-  pushBoard.pushToArray(player.getActiveMarker());
+  pushBoard.pushToArray(player.getActivePlayer().marker);
   console.log(pushBoard.getArray());
 
   
@@ -205,20 +179,22 @@ const player = players();
 
   function takeTurns() {
 
-let turn = player.switchPlayerTurn().switchPlayer;
 
-for (i = 0; i < 8; i++) {
+
+
+for (i = 0; i < 9; i++) {
 
    // don't put login in if statements. everything is navigating from before the statements.
-  console.log(turn);
+  //turn;
+  player.switchPlayerTurn();
 
-console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
+console.log(`${player.getActivePlayer().name}'s turn.`);
 
-  console.log(`${player.getActivePlayer()} places an ${player.getActiveMarker()} on the board`);
+  console.log(`${player.getActivePlayer().name} places an ${player.getActivePlayer().marker} on the board`);
 playRound();
 
   console.log(pushBoard.printBoard()); 
-
+  
   
 
  function playRound() {
@@ -236,27 +212,27 @@ playRound();
   const row3column3 = pushBoard.getArray().row3[2];
 
 if (row1column1 === 0) {
-  pushBoard.getArray().row1.splice(0, 1, player.switchPlayerTurn().switchMarker);
+  pushBoard.getArray().row1.splice(0, 1, player.getActivePlayer().marker);
   
   
 
   if (row1column1 === 1 || row1column1 === 2) {
 
     
-    pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
     
   }
 }
   else if (row1column2 === 0) {
    
 
-    pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
     
 
 
     if (row1column2 === 1 || row1column2 === 2) {
       
-      pushBoard.getArray().row1.splice(2, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
@@ -264,86 +240,81 @@ if (row1column1 === 0) {
   
   } else if (row1column3 === 0) {
     
-    pushBoard.getArray().row1.splice(2, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
     
 
     if (row1column3 === 1 || row1column3 === 2) {
 
       
-      pushBoard.getArray().row2.splice(0, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
    
   
     }
 
   } else if (row2column1 === 0) {
     
-    pushBoard.getArray().row2.splice(0, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
     
 
     if (row2column2 === 1 || row2column2 === 2) {
       
-      pushBoard.getArray().row2.splice(1, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
      
   
     }
   
   } else if (row2column2 === 0) {
    
-    pushBoard.getArray().row2.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
     
 
     if (row2column2 === 1 || row2column2 === 2) {
      
-      pushBoard.getArray().row2.splice(2, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
   
   } else if (row2column3 === 0) {
     
-    pushBoard.getArray().row2.splice(2, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
     
 
-    if (row2column2 === 1 || row2column2 === 2) {
+    if (row2column3 === 1 || row2column3 === 2) {
       
-      pushBoard.getArray().row3.splice(0, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
      
   
     }
 
   } else if (row3column1 === 0) {
    
-    pushBoard.getArray().row3.splice(0, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
   
 
     if (row3column2 === 1 || row3column2 === 2) {
       
-      pushBoard.getArray().row3.splice(1, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
      
   
     }
   
   } else if (row3column2 === 0) {
     
-    pushBoard.getArray().row3.splice(1, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
     
 
     if (row3column2 === 1 || row3column2 === 2) {
    
-      pushBoard.getArray().row3.splice(2, 1, player.switchPlayerTurn().switchMarker);
+      pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
       
   
     }
   
   } else if (row3column3 === 0) {
    
-    pushBoard.getArray().row3.splice(2, 1, player.switchPlayerTurn().switchMarker);
+    pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
     
-
-    if (row3column3 === 1 || row3column3 === 2) {
-     console.log("Game Over");
-  
-    }
 
   } else {
     return;
@@ -356,6 +327,9 @@ if (row1column1 === 0) {
 } // end of for loop
 
 } // end of play round
+
+console.log("Game Over");
+
 
   } //end of turns
   
