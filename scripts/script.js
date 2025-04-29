@@ -199,6 +199,7 @@ playRound();
 
  function playRound() {
 
+  /*
   const row1column1 = pushBoard.getArray().row1[0];
   const row1column2 = pushBoard.getArray().row1[1];
   const row1column3 = pushBoard.getArray().row1[2];
@@ -211,6 +212,8 @@ playRound();
   const row3column2 = pushBoard.getArray().row3[1];
   const row3column3 = pushBoard.getArray().row3[2];
 
+  */
+
 // You should be checking for all winning 3-in-a-rows and ties. 
 // You can call your functions and pass arguments to them to play 
 // the game yourself and check if everything is working
@@ -218,14 +221,53 @@ playRound();
 // maybe i need a for loop to iterate over the array
 // what is the array now?
 
-const newboardArray = [pushBoard.getArray().row1, pushBoard.getArray().row2, pushBoard.getArray().row3]
+column = 3;
 
-for (j = 0; j < 3; j++) {
-newboardArray[j]; 
-  for (k = 0; k < 3; k++) {
+const newboardArrays = [ {row: pushBoard.getArray().row1, row: pushBoard.getArray().row2, row: pushBoard.getArray().row3}]
 
+
+let availableCells = newboardArrays.filter((column) =>  column.row[0].row1, column.row[0].row2, column.row[0].row3 === 0).map(column => column.row[0].row1, column.row[0].row2, column.row[0].row3);
+    
+console.log(availableCells);
+
+    if (!availableCells.length) return;
+
+
+/* function cell() {
+  let value = 0;
+  
     
 
+  return {
+    addMarker: function(player) {
+      value = player;
+
+    },
+    getValue: function() {
+    return  value;
+  }
+}
+}
+*/
+
+//const activeCell = cell();
+
+
+
+for (j = 0; j < 3; j++) {
+newboardArrays; 
+  for (k = 0; k < 3; k++) {
+
+    newboardArrays.row1;
+    //newboardArrays.splice(newboardArrays.indexOf(newboardArrays[j]), 1, player.getActivePlayer().marker);
+
+console.log(newboardArrays);
+console.log(newboardArrays.row[0].row);
+
+   // console.log(newboardArrays);
+
+
+    /*
 if (row1column1 === 0) {
  // pushBoard.getArray().row1.splice(0, 1, player.getActivePlayer().marker);
  newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
@@ -336,20 +378,22 @@ if (row1column1 === 0) {
 } 
  else {
     return;
-  }
+  } */
   
-  } // third for loop
+  } // second for loop
+
+  } // for loop
   
-} // second for loop 
+} // play rounds
   
-} // end of for loop
+} // for loop
 
-} // end of play round
-
-
+} // end of turns
 
 
-  } //end of turns
+
+
+ // } //end of turns
   
  
 
