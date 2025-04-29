@@ -53,35 +53,77 @@
 function gameboard() {
 
    
-const board = { row1: ["", "", ""], row2: ["", "", ""], row3: ["", "", ""] };
+const board = { row1: [0, 0, 0], row2: [0, 0, 0], row3: [0, 0, 0] };
 
 //console.log(board);
+const row1column1 = board.row1[0];
+const row1column2 = board.row1[1];
+const row1column3 = board.row1[2];
 
-const printBoard = () => {
+const row2column1 = board.row2[0];
+const row2column2 = board.row2[1];
+const row2column3 = board.row2[2];
 
-  console.log(board.row1);
-  console.log(board.row2);
-  console.log(board.row3);
-}
+const row3column1 = board.row3[0];
+const row3column2 = board.row3[1];
+const row3column3 = board.row3[2];
 
-printBoard();
+
 
 return {
   pushToArray: function(value) {
-    board.row1.push(value);
-    board.row2.push(value);
-    board.row3.push(value);
+
+if (row1column1.length === 0) { // to check if array is empty
+  row1column1.splice(0, 1, value);
+
+} else if (row1column2.length === 0) {
+  row1column2.splice(1, 1, value);
+
+} else if (row1column3.length === 0) {
+  row1column3.splice(2, 1, value);
+} else {
+  return;
+}
+
+if (row2column1.length === 0) {
+  row2column1.splice(0, value, 1);
+
+} else if (row2column2.length === 0) {
+  row2column2.splice(1, 1, value);
+
+} else if (row2column3.length === 0) {
+  row2column3.splice(2, 1, value);
+} else {
+  return;
+}
+
+if (row3column1.length === 0) {
+  row3column1.splice(0, 1, value);
+
+} else if (row3column2.length === 0) {
+  row3column2.splice(1, 1, value);
+
+} else if (row3column3.length === 0) {
+  row3column3.splice(2, 1, value);
+} else {
+  return;
+}
+    
+    
   },
   getArray: function() {
     return board;
-  }, printBoard
+  }, printBoard: function() {
+
+    console.log(board.row1);
+    console.log(board.row2);
+    console.log(board.row3);
+  }
 };
 
-   
-//return printBoard;
 
   } 
-gameboard();
+//gameboard();
  
 
 
@@ -90,17 +132,19 @@ gameboard();
     player1Name = "Player One"; 
     player2Name = "Player Two";
 
-    const thePlayers = [{ name: player1Name, marker: "x" }, { name: player2Name, marker: "o" }];
+    const thePlayers = [{ name: player1Name, marker: 1 }, { name: player2Name, marker: 2 }];
 
     const getActivePlayer = () => thePlayers[0];
 
-    //const getMarker = () => thePlayers[0].marker;
+    
 
     const switchPlayerTurn = () => {
 
       getActivePlayer() = getActivePlayer() === thePlayers[0] ? thePlayers[1] : thePlayers[0];
 
     }
+
+    console.log("Player 1 usings 1 for X and Player 2 uses 2 for O.")
 
     console.log(`${getActivePlayer().name}'s turn.`);
 
