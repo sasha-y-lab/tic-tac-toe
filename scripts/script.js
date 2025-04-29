@@ -97,3 +97,29 @@ return { createGameBoard, printGameBoard };
 // now that the array was successfully created, what is next?
 // next I need to createPlayers. Is it a single instance called? no. so no module. Just factory function
 
+function gamePlayers() {
+
+
+function createPlayer(name, marker) {
+ 
+  const players = { name, marker };
+
+  return { players, name, marker };
+  
+}
+
+//createPlayer();
+
+const player1 = createPlayer("Player One", 1);
+
+console.log({ name: player1.name, marker: player1.marker });
+
+const player2 = createPlayer("Player Two", 2);
+
+console.log({ name: player2.name, marker: player2.marker });
+
+return {createPlayer, player1, player2 };
+
+}
+
+gamePlayers();
