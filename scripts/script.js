@@ -197,7 +197,9 @@ playRound();
   
   
 
- function playRound() {
+ function playRound(marker) {
+
+marker = player.getActivePlayer().marker;
 
   /*
   const row1column1 = pushBoard.getArray().row1[0];
@@ -229,40 +231,63 @@ const row3 = pushBoard.getArray().row3;
 
 const newboardArrays = [row1, row2, row3];
 
-function check4Zero(checkRow1) {
+
+//console.log(row1[0] == marker); // marker shows false because it's an object and you can't strict equal an object
+
+
+const checkSq = check4Zero();
+
+if ((checkSq.checkRow1[0] === 0 && row1[0] === 1) || (checkSq.checkRow1[0] === 0 && row1[0] === 2)) {
+
+  newboardArrays[0].splice(1, 1, marker);
+  
+
+ } else if ((checkSq.checkRow1[1] === 0 && row1[1] === 1) || (checkSq.checkRow1[1] === 0 && row1[1] === 2)) {
+
+  newboardArrays[0].splice(2, 1, marker);
+ }
+ 
+ 
+ if ((row1[0] === 1 && row1[1] === 1) || (row1[0] === 1 && row1[1] === 2)) {
+  newboardArrays[1].splice(1, 1, marker);
+
+ } else {
+  return;
+ }
+ 
+ //console.log(newboardArrays[1].splice(1, 1, marker));
+
+
+function check4Zero(checkRow1, checkRow2, checkRow3) {
 
 
 
 // checkRow1 = row1.filter((value, index) => (value === 0 && index === 0) || (value === 0 && index === 1) || (value === 0 && index === 2)).map((index) => index);
 // console.log(checkRow1); // returns two zeros which is correct but they are not in the right index
 
- normRow1 = row1.filter((index) => index === 0 || index === 1 || index === 2).map((index) => index); // prints correct row 1 array
- console.log(normRow1);
+// normRow1 = row1.filter((index) => index === 0 || index === 1 || index === 2).map((index) => index); // prints correct row 1 array
+// console.log(normRow1);
 
- checkRow1 = normRow1.filter((value) => value === 0).map((value) => value);
- console.log(checkRow1);
+ checkRow1 = row1.filter((value) => value === 0).map((value) => value);
+ //console.log(checkRow1);
+
+ checkRow2 = row2.filter((value) => value === 0).map((value) => value);
+ //console.log(checkRow2);
+
+
+ checkRow3 = row3.filter((value) => value === 0).map((value) => value);
+ //console.log(checkRow3);
 
 
  //console.log(checkRow1[0]); // 0
  //console.log(checkRow1[1]); // 0
  //console.log(checkRow1[2]); // undefined
 
- 
+// console.log(normRow1[0]);
 
- 
- if ((checkRow1[0] === 0 && normRow1[0] === 1) || (checkRow1[0] === 0 && normRow1[0] === 2) || (checkRow1[1] === 0 || normRow1[1] === 1) || (checkRow1[1] === 0 || normRow1[1] === 2) ) {
-
-  normRow1.splice(normRow1[checkRow1], 1, player.getActivePlayer().marker);
-  //newboardArrays.push(normRow1); //not needed
-
- }
- 
- console.log(normRow1);
-
-
-  return checkRow1;
+  return { checkRow1, checkRow2, checkRow3 };
 }
-check4Zero();
+//check4Zero();
 
 
 
