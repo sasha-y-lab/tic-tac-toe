@@ -10,35 +10,6 @@
 // const players = [{ name: player1Name, marker: x }, { name: player2Name, marker: o }];
 // 3. A GameController object for controlling the flow and state of the game's turns, 
 // as well as if whether anybody has won the game or any other logic?
-// So a gamecontroller variable, that equals a factory function?
-// const gameController = (function (player1Name, player2Name) {
-  // something here
-// player1Name = "Player One"; 
-// player2Name = "Player Two";
-
-// const gameboard = Gameboard(); // [];
-// const players = [{ name: player1Name, marker: x }, { name: player2Name, marker: o }];
-
-// let activePlayer = players[0]; // this means Player One with X as s marker
-
-// const switchPlayerTurn = () => {
-   // activePlayer = activePlayer === players[0] ? players[1] : players[0];
- // };
-
- // const getActivePlayer = () => activePlayer;
- // console.log(`${getActivePlayer().name}'s turn.`);
-
- //const playRound = () => {
-// console.log(
-   // `Writing ${getActivePlayer().name}'s ${marker} on the gameboard in ${column}${row}.`
-// );
-
-  //return { activePlayer, player1Name, player2Name, gameboard };
-// })(); // I guess that last bracket is calling itself?
-
-
-// so gameboard has to be a separate function too
-// I also guess gameboard obj variable and player obj variable are inside of this gamecontroller factory function
 
 
 //have as little global code as possible. Try tucking as much as you can inside factories. 
@@ -53,59 +24,55 @@
 function gameboard() {
 
    
-let board = { row1: [0, 0, 0], row2: [0, 0, 0], row3: [0, 0, 0] };
-console.log(board);
+const board = []
 
 
+const rows = 3;
 
-/*
-console.log(board);
-console.log(board.row1);
-console.log(board.row2);
-console.log(board.row3); // this prints the original board so maybe it's overwriting?
-*/
-
-const row1column1 = board.row1[0];
+const columns = 3;
 
 
-return {
-  pushToArray: function(value) {
+for (let i = 0; i < rows; i++) {
 
-    
+  board[i] = [];
 
-if (row1column1 === 0) { // to check if array is filled with a 0
-  board.row1.splice(0, 1, value);
+  for (let j = 0; j < columns; j++) {
+
+    const cell = "";
+
+    board[i].push(cell);
 
 }
 
-return value;
-    
-  },
-  getArray: function() {
+}
+
+
+const placeMarker = function (marker, row, column) {
+
+row = rows - 1;
+
+column = columns - 1;
+
+marker = players().getActivePlayer().marker;
+
+  if (board[row][column] === "") {
+    board[row][column] = marker;
+  }
+}
+
+
+return {
+   getArray: function() {
     
     return board;
   }, printBoard: function() {
 
-    
 
-    let boardrow1 = board.row1;
-    let boardrow2 = board.row2;
-    let boardrow3 = board.row3;
   
-    console.log(boardrow1);
-    console.log(boardrow2);
-    console.log(boardrow3);
-
-   
-    /*
-    console.log(board.row1);
-    console.log(board.row2);
-    console.log(board.row3);
-    */
-
-    return { boardrow1, boardrow2, boardrow3 };
+   return console.log(board);
   
-  }
+  
+  }, placeMarker, rows, columns, board
 };
 
 
@@ -131,7 +98,7 @@ return value;
       const getActivePlayer = () => activePlayer;
       
 
-    return { getActivePlayer, switchPlayerTurn } 
+    return { thePlayers, getActivePlayer, switchPlayerTurn } 
   
       
   }
@@ -139,320 +106,98 @@ return value;
  // players(); prints everything twice
 
   
-
-
-
-
-
-
-function gameController () {
+function gameController (playerNames) {
    
-
-
-  
-  //const board = gameboard(); // [];
-
-const player = players();
-  
-
-  
   console.log("Player 1 uses 1 for X and Player 2 uses 2 for O.")
 
+ 
+ 
+
+const player = players();
+
+playerNames = player.thePlayers.name;
+  
+const pushBoard = gameboard();
+
+const printNewRound = () => {
+
+  pushBoard.printBoard();
   console.log(`${player.getActivePlayer().name}'s turn.`);
 
-  //console.log(player.getActivePlayer()); // yes correct player1
+  
+}
+  
+ 
 
-  console.log(`${player.getActivePlayer().name} places an ${player.getActivePlayer().marker} on the board`);
-
-  //console.log(player.getActiveMarker()); // yes correct 1
-   
-  const pushBoard = gameboard();
-
-  pushBoard.pushToArray(player.getActivePlayer().marker);
-  console.log(pushBoard.getArray());
 
   
-  console.log(pushBoard.printBoard()); // does it print the original array? no
 
   
-  takeTurns();
+ function playRound(row, column, activePlayerNow) {
 
-  function takeTurns() {
+row = pushBoard.rows;
 
+console.log(row);
 
+const boardArray = pushBoard.getArray();
 
+column = pushBoard.columns;
+console.log(column);
 
-for (i = 0; i < 8; i++) {
+activePlayerNow = player.getActivePlayer();
 
-   // don't put login in if statements. everything is navigating from before the statements.
-  //turn;
+if (boardArray[row - 1][column - 1] !== "") {
+
+  console.log("Already Marked Spot.");
   player.switchPlayerTurn();
+} else {
+  console.log(`${player.getActivePlayer().name} places an ${player.getActivePlayer().marker} on the board into row ${row}, column ${column}.`);
+  pushBoard.placeMarker(player.getActivePlayer().marker, row - 1, column - 1);
+}
 
-console.log(`${player.getActivePlayer().name}'s turn.`);
 
-  console.log(`${player.getActivePlayer().name} places an ${player.getActivePlayer().marker} on the board`);
-playRound();
 
-  console.log(pushBoard.printBoard()); 
-  
-  
 
- function playRound(row, column, activePlayer) {
 
-row = pushBoard.getArray();
 
-//console.log(row.row1);
-
-column = pushBoard.getArray();
-
-activePlayer = pushBoard.getActivePlayer();
-
-//marker = player.getActivePlayer().marker;
-
-  /*
-  const row1column1 = pushBoard.getArray().row1[0];
-  const row1column2 = pushBoard.getArray().row1[1];
-  const row1column3 = pushBoard.getArray().row1[2];
-
-  const row2column1 = pushBoard.getArray().row2[0];
-  const row2column2 = pushBoard.getArray().row2[1];
-  const row2column3 = pushBoard.getArray().row2[2];
-
-  const row3column1 = pushBoard.getArray().row3[0];
-  const row3column2 = pushBoard.getArray().row3[1];
-  const row3column3 = pushBoard.getArray().row3[2];
-
-  */
+// switch turns
+player.switchPlayerTurn();
+printNewRound();
 
 // You should be checking for all winning 3-in-a-rows and ties. 
 // You can call your functions and pass arguments to them to play 
 // the game yourself and check if everything is working
 
-// maybe i need a for loop to iterate over the array
-// what is the array now?
+//const winningCombos = [
 
-//column = 3;
+//[]
 
-/*
-const row1 = pushBoard.getArray().row1;
-const row2 = pushBoard.getArray().row2;
-const row3 = pushBoard.getArray().row3;
-
-const newboardArrays = [row1, row2, row3];
-*/
-
-
-//console.log(row1[0] == marker); // marker shows false because it's an object and you can't strict equal an object
-
-
-const checkSq = check4Zero();
-
-if (checkSq.includes(0)) {
-
- return pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
-}
-
-if (checkSq.includes(1) || checkSq.includes(2)) {
-
-  pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
- } 
-  
-}
- 
- //console.log(newboardArrays[1].splice(1, 1, marker));
-
-
-function check4Zero(checkRow1, checkRow2, checkRow3) {
+//]
 
 
 
-// checkRow1 = row1.filter((value, index) => (value === 0 && index === 0) || (value === 0 && index === 1) || (value === 0 && index === 2)).map((index) => index);
-// console.log(checkRow1); // returns two zeros which is correct but they are not in the right index
-
-// normRow1 = row1.filter((index) => index === 0 || index === 1 || index === 2).map((index) => index); // prints correct row 1 array
-// console.log(normRow1);
-
- checkRow1 = pushBoard.getArray().row1.filter((value) => value === 0).map((value) => value);
- //console.log(checkRow1);
-
- checkRow2 = pushBoard.getArray().row2.filter((value) => value === 0).map((value) => value);
- //console.log(checkRow2);
-
-
- checkRow3 = pushBoard.getArray().row3.filter((value) => value === 0).map((value) => value);
- //console.log(checkRow3);
-
-
- //console.log(checkRow1[0]); // 0
- //console.log(checkRow1[1]); // 0
- //console.log(checkRow1[2]); // undefined
-
-// console.log(normRow1[0]);
-
-  return { checkRow1, checkRow2, checkRow3 };
-}
-//check4Zero();
-
-
-
-/*
-
-for (j = 0; j < 3; j++) {
-newboardArrays[j]; 
-  for (k = 0; k < 3; k++) {
-
-    newboardArrays[j];
-    //newboardArrays.splice(newboardArrays.indexOf(newboardArrays[j]), 1, player.getActivePlayer().marker);
-
-console.log(newboardArrays);
-console.log(newboardArrays[j]);
-
-*/
-
-   // console.log(newboardArrays);
-
-
-    /*
-if (row1column1 === 0) {
- // pushBoard.getArray().row1.splice(0, 1, player.getActivePlayer().marker);
- newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-  
-
-  if (row1column1 === 1 || row1column1 === 2) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-    
-   // pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
-    
-  }
-}
-  else if (row1column2 === 0) {
-   
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row1.splice(1, 1, player.getActivePlayer().marker);
-    
-
-
-    if (row1column2 === 1 || row1column2 === 2) {
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-     // pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
-      
-  
-    }
-
-  
-  } else if (row1column3 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row1.splice(2, 1, player.getActivePlayer().marker);
-    
-
-    if (row1column3 === 1 || row1column3 === 2) {
-
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-     // pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
-   
-  
-    }
-
-  } else if (row2column1 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row2.splice(0, 1, player.getActivePlayer().marker);
-    
-
-    if (row2column2 === 1 || row2column2 === 2) {
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-     // pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
-     
-  
-    }
-  
-  } else if (row2column2 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row2.splice(1, 1, player.getActivePlayer().marker);
-    
-
-    if (row2column2 === 1 || row2column2 === 2) {
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-     // pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
-      
-  
-    }
-  
-  } else if (row2column3 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row2.splice(2, 1, player.getActivePlayer().marker);
-    
-
-    if (row2column3 === 1 || row2column3 === 2) {
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-     // pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
-     
-  
-    }
-
-  } else if (row3column1 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row3.splice(0, 1, player.getActivePlayer().marker);
-  
-
-    if (row3column2 === 1 || row3column2 === 2) {
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-    //  pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
-     
-  
-    }
-  
-  } else if (row3column2 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row3.splice(1, 1, player.getActivePlayer().marker);
-    
-
-    if (row3column2 === 1 || row3column2 === 2) {
-      newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-     // pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
-      
-  
-    }
-  
-  } else if (row3column3 === 0) {
-    newboardArray[j].splice(newboardArray.indexOf(newboardArray[j]), 1, player.getActivePlayer().marker);
-   // pushBoard.getArray().row3.splice(2, 1, player.getActivePlayer().marker);
-    
-      if (row3column3 === 1 || row3column3 === 2) {
-   console.log("Game Over");
-  } 
-} 
- else {
-    return;
-  } */
-
-    /*
-  
-  } // second for loop
-
-  } // for loop
-
-  */
+return { row, column, player, activePlayerNow, playerNames };
   
 } // play rounds
-  
-//} // for loop
 
-} // end of turns
+playRound();
 
-
-
-
- // } //end of turns
-  
+  printNewRound();
  
 
 
 
 
-  return { player, pushBoard };
+  return { player, pushBoard, playRound, printNewRound };
 
 }
 
-gameController();
+//gameController();
 
-//const game = GameController();
+const game = gameController("Hungry", "Hippo");
+
+game.playRound(1, 1, players().getActivePlayer());
+game.playRound(1, 2, players().getActivePlayer());
+game.playRound(2, 1, players().getActivePlayer());
+
+
