@@ -223,46 +223,38 @@ playRound();
 
 column = 3;
 
-const newboardArrays = [ {row: pushBoard.getArray().row1, row: pushBoard.getArray().row2, row: pushBoard.getArray().row3}]
+const row1 = pushBoard.getArray().row1;
+const row2 = pushBoard.getArray().row2;
+const row3 = pushBoard.getArray().row3;
+
+const newboardArrays = [row1, row2, row3];
+
+function sqNotTaken(value) {
+  value;
+  return value === 1 || value === 2;
+}
 
 
-let availableCells = newboardArrays.filter((column) =>  column.row[0].row1, column.row[0].row2, column.row[0].row3 === 0).map(column => column.row[0].row1, column.row[0].row2, column.row[0].row3);
+let availableCells = newboardArrays.filter(sqNotTaken);
     
+
+
 console.log(availableCells);
 
     if (!availableCells.length) return;
 
 
-/* function cell() {
-  let value = 0;
-  
-    
-
-  return {
-    addMarker: function(player) {
-      value = player;
-
-    },
-    getValue: function() {
-    return  value;
-  }
-}
-}
-*/
-
-//const activeCell = cell();
-
 
 
 for (j = 0; j < 3; j++) {
-newboardArrays; 
+newboardArrays[j]; 
   for (k = 0; k < 3; k++) {
 
-    newboardArrays.row1;
+    newboardArrays[j];
     //newboardArrays.splice(newboardArrays.indexOf(newboardArrays[j]), 1, player.getActivePlayer().marker);
 
 console.log(newboardArrays);
-console.log(newboardArrays.row[0].row);
+console.log(newboardArrays[j]);
 
    // console.log(newboardArrays);
 
