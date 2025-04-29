@@ -229,22 +229,44 @@ const row3 = pushBoard.getArray().row3;
 
 const newboardArrays = [row1, row2, row3];
 
-function sqNotTaken(value) {
-  value;
-  return value === 1 || value === 2;
+function check4Zero(checkRow1) {
+
+
+
+// checkRow1 = row1.filter((value, index) => (value === 0 && index === 0) || (value === 0 && index === 1) || (value === 0 && index === 2)).map((index) => index);
+// console.log(checkRow1); // returns two zeros which is correct but they are not in the right index
+
+ normRow1 = row1.filter((index) => index === 0 || index === 1 || index === 2).map((index) => index); // prints correct row 1 array
+ console.log(normRow1);
+
+ checkRow1 = normRow1.filter((value) => value === 0).map((value) => value);
+ console.log(checkRow1);
+
+
+ //console.log(checkRow1[0]); // 0
+ //console.log(checkRow1[1]); // 0
+ //console.log(checkRow1[2]); // undefined
+
+ 
+
+ 
+ if ((checkRow1[0] === 0 && normRow1[0] === 1) || (checkRow1[0] === 0 && normRow1[0] === 2) || (checkRow1[1] === 0 || normRow1[1] === 1) || (checkRow1[1] === 0 || normRow1[1] === 2) ) {
+
+  normRow1.splice(normRow1[checkRow1], 1, player.getActivePlayer().marker);
+  //newboardArrays.push(normRow1); //not needed
+
+ }
+ 
+ console.log(normRow1);
+
+
+  return checkRow1;
 }
-
-
-let availableCells = newboardArrays.filter(sqNotTaken);
-    
-
-
-console.log(availableCells);
-
-    if (!availableCells.length) return;
+check4Zero();
 
 
 
+/*
 
 for (j = 0; j < 3; j++) {
 newboardArrays[j]; 
@@ -255,6 +277,8 @@ newboardArrays[j];
 
 console.log(newboardArrays);
 console.log(newboardArrays[j]);
+
+*/
 
    // console.log(newboardArrays);
 
@@ -371,10 +395,14 @@ if (row1column1 === 0) {
  else {
     return;
   } */
+
+    /*
   
   } // second for loop
 
   } // for loop
+
+  */
   
 } // play rounds
   
