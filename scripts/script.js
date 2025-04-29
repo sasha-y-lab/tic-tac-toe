@@ -53,68 +53,70 @@
 function gameboard() {
 
    
-const board = { row1: [0, 0, 0], row2: [0, 0, 0], row3: [0, 0, 0] };
+let board = { row1: [0, 0, 0], row2: [0, 0, 0], row3: [0, 0, 0] };
+console.log(board);
 
-//console.log(board);
-const row1column1 = board.row1[0];
-const row1column2 = board.row1[1];
-const row1column3 = board.row1[2];
 
-const row2column1 = board.row2[0];
-const row2column2 = board.row2[1];
-const row2column3 = board.row2[2];
 
-const row3column1 = board.row3[0];
-const row3column2 = board.row3[1];
-const row3column3 = board.row3[2];
+/*
+console.log(board);
+console.log(board.row1);
+console.log(board.row2);
+console.log(board.row3); // this prints the original board so maybe it's overwriting?
+*/
+
+let row1column1 = board.row1[0];
+let row1column2 = board.row1[1];
+let row1column3 = board.row1[2];
+
+let row2column1 = board.row2[0];
+let row2column2 = board.row2[1];
+let row2column3 = board.row2[2];
+
+let row3column1 = board.row3[0];
+let row3column2 = board.row3[1];
+let row3column3 = board.row3[2];
 
 //console.log(row1column1);
+
 
 return {
   pushToArray: function(value) {
 
-
-
-
+    
 
 if (row1column1 === 0) { // to check if array is filled with a 0
   board.row1.splice(0, 1, value);
 
-} else if (row1column2 === 0) {
-  board.row1.splice(1, 1, value);
-
-} else if (row1column3 === 0) {
-  board.row1.splice(2, 1, value);
-} else if (row2column1 === 0) {
-  board.row2.splice(0, 1, value);
-
-} else if (row2column2 === 0) {
-  board.row2.splice(1, 1, value);
-
-} else if (row2column3 === 0) {
-  board.row2.splice(2, 1, value);
-} else if (row3column1 === 0) {
-  board.row3.splice(0, 1, value);
-
-} else if (row3column2 === 0) {
-  board.row3.splice(1, 1, value);
-
-} else if (row3column3 === 0) {
-  board.row3.splice(2, 1, value);
-} else {
-  return;
 }
 
 return value;
     
   },
   getArray: function() {
+    
     return board;
   }, printBoard: function() {
 
+    
+
+    let boardrow1 = board.row1;
+    let boardrow2 = board.row2;
+    let boardrow3 = board.row3;
+  
+    console.log(boardrow1);
+    console.log(boardrow2);
+    console.log(boardrow3);
+
+   
+    /*
     console.log(board.row1);
     console.log(board.row2);
     console.log(board.row3);
+    */
+
+    return { boardrow1, boardrow2, boardrow3 };
+  
   }
 };
 
@@ -204,6 +206,9 @@ const player = players();
 
   pushBoard.pushToArray(player.getActiveMarker());
   console.log(pushBoard.getArray());
+
+  
+  console.log(pushBoard.printBoard()); // does it print the original array? no
   
 player.switchPlayerTurn().switchPlayer;
 
@@ -211,8 +216,11 @@ console.log(`${player.switchPlayerTurn().switchPlayer}'s turn.`);
 
   console.log(`${player.switchPlayerTurn().switchPlayer} places an ${player.switchPlayerTurn().switchMarker} on the board`);
 
-  pushBoard.pushToArray(player.switchPlayerTurn().switchMarker);
-  console.log(pushBoard.getArray());
+  pushBoard.getArray().row1.splice(1, 1, player.switchPlayerTurn().switchMarker);
+  
+  console.log(pushBoard.printBoard());
+
+
 
   return { player, pushBoard };
 
