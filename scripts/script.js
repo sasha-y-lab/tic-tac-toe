@@ -226,24 +226,16 @@ const board = GameBoard.getGameBoard().gameBoard; // gives correct output of cre
 
 //console.log(board);
 let k = 0;
+let l = 0;
  index = k;
 
  let targetValue = 0;
-
-//let equal2Zero = board.every(check4Zero());
-
-//console.log(equal2Zero);
-
-//function check4Zero() {
- //  value = 0;
-
-//}
 
    // index = // to get the index of each element i need a for loop
 
 for (k; k < board.length; k++) {
 
-  for (l = 0; l < board.length; l++) {
+  for (l; l < board.length; l++) {
   console.log(`Index: ${[k]}, Element: ${board[k][l]}`); // index can change to l to show individual index of elements
 // k alone on board lists just all elements in each row
   
@@ -253,19 +245,27 @@ for (k; k < board.length; k++) {
 if (board[k][l] === targetValue){
 
   console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
-  
+  // now a statement to remove those zeros, but that would be a separate function and would go in playRound
+  // how do i capture the element values that are checked? are they already captured?
+
+
+
 
 }
   
 } // second for loop
 } // first for loop
 
- 
 
+// now put splice and push the active marker
+console.log(getActiveMarker);
+board.splice([k][l], 1, getActiveMarker);
+console.log(board.splice([k][l], 1, getActiveMarker));
+console.log(board);
 
 
   
-  return { targetValue, board, index, k };
+  return { targetValue, board, index, k, l };
 }
 
 
