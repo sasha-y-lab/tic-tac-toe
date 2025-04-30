@@ -1,25 +1,3 @@
-// 1. You’re going to store the gameboard as an array inside of a Gameboard object
-// Your players are also going to be stored in objects, and you’re probably going 
-// to want an object to control the flow of the game itself.
-
-// ** this means I need:
-
-// 3. A GameController object for controlling the flow and state of the game's turns, 
-// as well as if whether anybody has won the game or any other logic?
-
-
-//have as little global code as possible. Try tucking as much as you can inside factories. 
-// If you only need a single instance of something (e.g. the gameboard, the 
-// displayController etc.) then wrap the factory inside an IIFE (module pattern) 
-
-// functionality should be able to fit in the game, player or gameboard objects. 
-// Take care to put them in “logical” places.
-
-//Focus on getting a working game in the console first. no logic for winning yet
-
-
-
-
 // create 1. gameboard object module with an "empty" gameboard array
 
 const GameBoard = (function() {
@@ -113,31 +91,28 @@ function createPlayer(name, marker) {
 
 const player1 = createPlayer("Player One", 1);
 
-console.log({ name: player1.name, marker: player1.marker });
+const player1Info = { name: player1.name, marker: player1.marker };
+
+//console.log({ name: player1.name, marker: player1.marker });
 
 const player2 = createPlayer("Player Two", 2);
 
-console.log({ name: player2.name, marker: player2.marker });
+const player2Info = { name: player2.name, marker: player2.marker };
 
-return {createPlayer, player1, player2 };
+//console.log({ name: player2.name, marker: player2.marker });
+
+return {createPlayer, player1, player2, player1Info, player2Info };
 
 }
 
 //gamePlayers();
 
 
+function gameController() {
 
-// what next? 3. gameController for controlling the flow and state of the game's turns, 
-// as well as if whether anybody has won the game or any other logic
-
-// not an instance called once? no. it may need to be called multiple times with arguments.
-
-
-// so create a factory function
-
-function gameController(activePlayer, activeMarker, playerPosition) {
-
-  
+  let activePlayer;
+  let activeMarker;
+  let playerPosition;
 
 // what is the logic in here?
 
@@ -159,7 +134,7 @@ console.log("Player One will use 1 to mark on the board, while Player Two will u
 // first we need to write how to make player 1 the active player.
 
 const thePlayers = gamePlayers();
-const updatePlayer = getActivePlayer();
+
 //let activePlayer; //= thePlayers.player1.name;
 
 //let activeMarker; // = thePlayers.player1.marker;
@@ -217,11 +192,6 @@ return { activePlayer, checkTurns, checkOdd, activeMarker }
 }
 
 
-//let getActivePlayer = switchPlayers().activePlayer;
-//let getActiveMarker = switchPlayers().activeMarker;
-
-
-
 // we need a position function or expression or calculation to state what array element the player needs to 
 // put their marker in
 
@@ -270,7 +240,7 @@ function markerPosition(index) {
   }
   
   
-   playerPosition = markerPosition();
+   
 
 
 
@@ -278,8 +248,14 @@ function markerPosition(index) {
 
 function playRound(activePlayer, activeMarker, playerPosition) {
 
+  const updatePlayer = getActivePlayer();
+
   activePlayer = gameController().updatePlayer.activePlayer;
 activeMarker = gameController().updatePlayer.activeMarker;
+
+playerPosition = markerPosition();
+
+
 
 let p = 0;
 
@@ -294,6 +270,10 @@ console.log(`${activePlayer}'s turn.`);
 console.log(`${activePlayer} writes ${activeMarker} at ${playerPosition}`);
 
 playerPosition; // player 1 drops their marker
+
+// print board
+
+GameBoard.printGameBoard().gameBoard;
 
 // log turn
 
@@ -317,25 +297,25 @@ return { p, turnTracker, updatePlayer, activePlayer, activeMarker, markerPositio
 
 } // end of playRound
 
-//playRound();
+const playAgain = playRound();
 
 
-
-
-
-
-
-
-
-
-
-
-
-return { playRound, updatePlayer, thePlayers, getActivePlayer, activePlayer, activeMarker, playerPosition, switchPlayers, markerPosition };
+return { playRound, playAgain, thePlayers, getActivePlayer, activePlayer, activeMarker, playerPosition, switchPlayers, markerPosition };
 
 }
 
-const game = gameController();
+//gameController();
 
-game.playRound(1, [1][1]);
+//const game = gameController();
+
+//game.playRound(1, [1][1]);
+
+
+function gamePlay() {
+
+
+
+} 
+
+gamePlay();
 
