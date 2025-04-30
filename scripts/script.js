@@ -84,8 +84,13 @@ function printGameBoard() {
 }
 //printGameBoard();
 
+function getGameBoard() {
 
-return { createGameBoard, printGameBoard };
+  return createGameBoard();
+}
+
+
+return { createGameBoard, printGameBoard, getGameBoard };
 
 })(); // this is an immediately invoked function which is a module
 
@@ -189,15 +194,82 @@ let getActiveMarker = switchPlayers().activeMarker;
 
 // so now start with Player 1
 
+function playRound() {
+
 console.log(`${getActivePlayer}'s turn.`);
 
 console.log(`${getActivePlayer} writes ${getActiveMarker} at position`);
 
-
-// we need a position function or expression or calculation
-
+}
 
 
+// we need a position function or expression or calculation to state what array element the player needs to 
+// put their marker in
+
+// under createGameboard
+
+// how do you iterate through an array of elements? through a loop? or method?
+// i need to access the index so "for of" loop is out
+// for loop has manual index manuipulation so its out
+// for in loop not for arrays
+// while loop is not for arrays
+
+// I can filter based on an equation for checking zeros. no mapping
+// i can also do every() to check for all elements with 0
+
+// create a function for this
+
+function markerPosition(index) {
+
+
+const board = GameBoard.getGameBoard().gameBoard; // gives correct output of created initial board not empty array
+
+//console.log(board);
+let k = 0;
+ index = k;
+
+ let targetValue = 0;
+
+//let equal2Zero = board.every(check4Zero());
+
+//console.log(equal2Zero);
+
+//function check4Zero() {
+ //  value = 0;
+
+//}
+
+   // index = // to get the index of each element i need a for loop
+
+for (k; k < board.length; k++) {
+
+  for (l = 0; l < board.length; l++) {
+  console.log(`Index: ${[k]}, Element: ${board[k][l]}`); // index can change to l to show individual index of elements
+// k alone on board lists just all elements in each row
+  
+// now check values for zero
+// use if statements
+ 
+if (board[k][l] === targetValue){
+
+  console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
+  
+
+}
+  
+} // second for loop
+} // first for loop
+
+ 
+
+
+
+  
+  return { targetValue, board, index, k };
+}
+
+
+markerPosition();
 
 
 
@@ -207,6 +279,8 @@ console.log(`${getActivePlayer} writes ${getActiveMarker} at position`);
 
 
 
+
+return { playRound, thePlayers, getActiveMarker, getActivePlayer, switchPlayers, markerPosition };
 
 }
 
