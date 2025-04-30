@@ -135,7 +135,9 @@ return {createPlayer, player1, player2 };
 
 // so create a factory function
 
-function gameController(playerName, playerMarker, playerPosition) {
+function gameController(activePlayer, activeMarker, playerPosition) {
+
+  
 
 // what is the logic in here?
 
@@ -157,10 +159,10 @@ console.log("Player One will use 1 to mark on the board, while Player Two will u
 // first we need to write how to make player 1 the active player.
 
 const thePlayers = gamePlayers();
+const updatePlayer = getActivePlayer();
+//let activePlayer; //= thePlayers.player1.name;
 
-let activePlayer = thePlayers.player1.name;
-
-let activeMarker = thePlayers.player1.marker;
+//let activeMarker; // = thePlayers.player1.marker;
 
 const p1 = thePlayers.player1.name;
   const p2 = thePlayers.player2.name;
@@ -169,6 +171,8 @@ const p1 = thePlayers.player1.name;
   const p2mkr = thePlayers.player2.marker;
 
 //console.log(activePlayer); // yes this is Player One.
+
+
 
 const switchPlayers = function() {
 
@@ -182,8 +186,39 @@ const switchPlayers = function() {
 
 //console.log(switchPlayers());
 
-let getActivePlayer = switchPlayers().activePlayer;
-let getActiveMarker = switchPlayers().activeMarker;
+//need a getActivePlayer and getActiveMarker function as switch only switches at every instance!
+
+function getActivePlayer() {
+/// use the turn tracker
+//If turnTacker is 0 checkOdd is FALSE, if turnTacker is 1 checkOdd is TRUE, if turnTacker is 
+// 2 checkOdd is FALSE, and so on.
+
+let checkTurns = gameController().playRound().turnTracker;
+
+
+function checkOdd(int) {
+  return int % 2;
+}
+
+if(checkOdd(checkTurns)){
+  // player2 is active
+  activePlayer = thePlayers.player2.name;
+  activeMarker = thePlayers.player2.marker;
+
+}else{
+  // player1 is active
+
+  activePlayer = thePlayers.player1.name;
+  activeMarker = thePlayers.player1.marker;
+};
+
+return { activePlayer, checkTurns, checkOdd, activeMarker }
+
+}
+
+
+//let getActivePlayer = switchPlayers().activePlayer;
+//let getActiveMarker = switchPlayers().activeMarker;
 
 
 
@@ -224,9 +259,9 @@ function markerPosition(index) {
   
   
   // now put splice and push the active marker
-  console.log(getActiveMarker);
-  board.splice([k][l], 1, getActiveMarker);
-  console.log(board.splice([k][l], 1, getActiveMarker));
+  console.log(updatePlayer.activeMarker);
+  board.splice([k][l], 1, updatePlayer.activeMarker);
+  console.log(board.splice([k][l], 1, updatePlayer.activeMarker));
   console.log(board);
   
   
@@ -235,23 +270,34 @@ function markerPosition(index) {
   }
   
   
-  const playerPositon = markerPosition();
+   playerPosition = markerPosition();
 
 
 
 // so now start with Player 1
 
-function playRound() {
+function playRound(activePlayer, activeMarker, playerPosition) {
+
+  activePlayer = gameController().updatePlayer.activePlayer;
+activeMarker = gameController().updatePlayer.activeMarker;
+
+let p = 0;
+
+let turnTracker = p;
 
 // need a for loop to play round 9 times
 
-for (p = 0; p < 10; p++) { // p < 10 means up to 9
+for (p; p < 10; p++) { // p < 10 means up to 9
 
-console.log(`${getActivePlayer}'s turn.`);
+console.log(`${activePlayer}'s turn.`);
 
-console.log(`${getActivePlayer} writes ${getActiveMarker} at ${playerPosition}`);
+console.log(`${activePlayer} writes ${activeMarker} at ${playerPosition}`);
 
-markerPosition(); // player 1 drops their marker
+playerPosition; // player 1 drops their marker
+
+// log turn
+
+console.log(`Turns: ${turnTracker}.`)
 
 // switch turns
 
@@ -267,9 +313,11 @@ console.log("Game Over");
 }
 
 
+return { p, turnTracker, updatePlayer, activePlayer, activeMarker, markerPosition, switchPlayers, getActivePlayer, playerPosition }
+
 } // end of playRound
 
-playRound();
+//playRound();
 
 
 
@@ -283,9 +331,11 @@ playRound();
 
 
 
-return { playRound, thePlayers, getActiveMarker, getActivePlayer, switchPlayers, markerPosition };
+return { playRound, updatePlayer, thePlayers, getActivePlayer, activePlayer, activeMarker, playerPosition, switchPlayers, markerPosition };
 
 }
 
-gameController();
+const game = gameController();
+
+game.playRound(1, [1][1]);
 
