@@ -139,21 +139,14 @@ function gameController(playerName, playerMarker, playerPosition) {
 
 // what is the logic in here?
 
-// 1. start game
-// 2. Player 1 goes
+// 1. start game - check
+// 2. Player 1 goes check
 // 3. player 2 goes
-// 4. alternate 7 more times (a total of 9 turns)
+// 4. alternate 7 more times (a total of 9 turns) check with for loop
 // 5. check who won
 // 6. declare winner
 
-// what are the parameters? you need a name, marker value, and position (coordinates) where
-//  you're dropping the marker
 
-// playerName needs an active player to work
-
-//playerMarker needs an active marker
-
-// position needs coordinates of the board
 
 // so first, 1. start game. 
 
@@ -192,84 +185,94 @@ const switchPlayers = function() {
 let getActivePlayer = switchPlayers().activePlayer;
 let getActiveMarker = switchPlayers().activeMarker;
 
-// so now start with Player 1
-
-function playRound() {
-
-console.log(`${getActivePlayer}'s turn.`);
-
-console.log(`${getActivePlayer} writes ${getActiveMarker} at position`);
-
-}
 
 
 // we need a position function or expression or calculation to state what array element the player needs to 
 // put their marker in
 
-// under createGameboard
-
-// how do you iterate through an array of elements? through a loop? or method?
-// i need to access the index so "for of" loop is out
-// for loop has manual index manuipulation so its out
-// for in loop not for arrays
-// while loop is not for arrays
-
-// I can filter based on an equation for checking zeros. no mapping
-// i can also do every() to check for all elements with 0
-
-// create a function for this
-
 function markerPosition(index) {
 
 
-const board = GameBoard.getGameBoard().gameBoard; // gives correct output of created initial board not empty array
-
-//console.log(board);
-let k = 0;
-let l = 0;
- index = k;
-
- let targetValue = 0;
-
-   // index = // to get the index of each element i need a for loop
-
-for (k; k < board.length; k++) {
-
-  for (l; l < board.length; l++) {
-  console.log(`Index: ${[k]}, Element: ${board[k][l]}`); // index can change to l to show individual index of elements
-// k alone on board lists just all elements in each row
+  const board = GameBoard.getGameBoard().gameBoard; // gives correct output of created initial board not empty array
   
-// now check values for zero
-// use if statements
- 
-if (board[k][l] === targetValue){
+  //console.log(board);
+  let k = 0;
+  let l = 0;
+   index = k;
+  
+   let targetValue = 0;
+  
+     // index = // to get the index of each element i need a for loop
+  
+  for (k; k < board.length; k++) {
+  
+    for (l; l < board.length; l++) {
+    console.log(`Index: ${[k]}, Element: ${board[k][l]}`); // index can change to l to show individual index of elements
+  // k alone on board lists just all elements in each row
+    
+  // now check values for zero
+  // use if statements
+   
+  if (board[k][l] === targetValue){
+  
+    console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
+    
+  }
+    
+  } // second for loop
+  } // first for loop
+  
+  
+  // now put splice and push the active marker
+  console.log(getActiveMarker);
+  board.splice([k][l], 1, getActiveMarker);
+  console.log(board.splice([k][l], 1, getActiveMarker));
+  console.log(board);
+  
+  
+    
+    return { targetValue, board, index, k, l };
+  }
+  
+  
+  const playerPositon = markerPosition();
 
-  console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
-  // now a statement to remove those zeros, but that would be a separate function and would go in playRound
-  // how do i capture the element values that are checked? are they already captured?
 
 
+// so now start with Player 1
 
+function playRound() {
+
+// need a for loop to play round 9 times
+
+for (p = 0; p < 10; p++) { // p < 10 means up to 9
+
+console.log(`${getActivePlayer}'s turn.`);
+
+console.log(`${getActivePlayer} writes ${getActiveMarker} at ${playerPosition}`);
+
+markerPosition(); // player 1 drops their marker
+
+// switch turns
+
+switchPlayers();
+
+// now on the ninth time i need an if statement to say Gave Over
+
+if (p === 9) {
+console.log("Game Over");
 
 }
-  
-} // second for loop
-} // first for loop
 
-
-// now put splice and push the active marker
-console.log(getActiveMarker);
-board.splice([k][l], 1, getActiveMarker);
-console.log(board.splice([k][l], 1, getActiveMarker));
-console.log(board);
-
-
-  
-  return { targetValue, board, index, k, l };
 }
 
 
-markerPosition();
+} // end of playRound
+
+playRound();
+
+
+
 
 
 
