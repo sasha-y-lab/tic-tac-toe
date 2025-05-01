@@ -117,22 +117,32 @@ function getActivePlayer() {
 
 function markerPosition(activeMarker) {
   const board = GameBoard.getGameBoard();
-  let targetValue = 0; // Empty spot value to place the marker
+  let availablePositions = []; // To store available (empty) positions
 
-  // Search for the first empty spot (targetValue is 0)
+  // Collect all empty positions (cells with value 0)
   for (let k = 0; k < board.length; k++) {
     for (let l = 0; l < board[k].length; l++) {
-      if (board[k][l] === targetValue) {
-        board[k][l] = activeMarker; // Place the marker
-        console.log(`${activeMarker === 1 ? 'Player One' : 'Player Two'} places marker ${activeMarker} at [${k}, ${l}]`);
-        return { k, l };
+      if (board[k][l] === 0) {
+        availablePositions.push({ k, l }); // Store position as an object {row, column}
       }
     }
   }
 
-  // If no empty spot is found, return invalid coordinates
-  console.warn("No empty cell found");
-  return { k: -1, l: -1 }; // Return invalid coordinates
+  // If there are no available positions, return
+  if (availablePositions.length === 0) {
+    console.warn("No empty cell found");
+    return { k: -1, l: -1 }; // Return invalid coordinates
+  }
+
+  // Pick a random position from the available positions
+  const randomIndex = Math.floor(Math.random() * availablePositions.length);
+  const randomPosition = availablePositions[randomIndex];
+
+  // Place the marker in the randomly selected position
+  board[randomPosition.k][randomPosition.l] = activeMarker;
+  console.log(`${activeMarker === 1 ? 'Player One' : 'Player Two'} places marker ${activeMarker} at [${randomPosition.k}, ${randomPosition.l}]`);
+
+  return randomPosition;
 }
 
 // function to play the game loop
