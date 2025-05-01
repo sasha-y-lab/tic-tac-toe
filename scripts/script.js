@@ -112,6 +112,40 @@ function getActivePlayer() {
 }
 
 
+// Function to check if a player has won
+function checkWin(marker) {
+  const board = GameBoard.getGameBoard();
+
+  // Check rows: if all the cells in the row contain the same marker.
+  for (let row = 0; row < board.length; row++) {
+    if (board[row].every(cell => cell === marker)) {
+      console.log(`${marker === 1 ? 'Player One' : 'Player Two'} wins (Row)!`);
+      return true;
+    }
+  }
+
+  // Check columns: if all the cells in the column contain the same marker.
+  for (let col = 0; col < board[0].length; col++) {
+    if (board.every(row => row[col] === marker)) {
+      console.log(`${marker === 1 ? 'Player One' : 'Player Two'} wins (Column)!`);
+      return true;
+    }
+  }
+
+  // Check diagonals: if all the cells in the diagonal contain the same marker.
+  if (board.every((row, index) => row[index] === marker)) {
+    console.log(`${marker === 1 ? 'Player One' : 'Player Two'} wins (Diagonal top-left to bottom-right)!`);
+    return true;
+  }
+  if (board.every((row, index) => row[board.length - 1 - index] === marker)) {
+    console.log(`${marker === 1 ? 'Player One' : 'Player Two'} wins (Diagonal top-right to bottom-left)!`);
+    return true;
+  }
+
+  return false;
+}
+
+
 // we need a position function or expression or calculation to state what array element the player needs to 
 // put their marker in
 
@@ -160,11 +194,19 @@ function playRound() {
     // Print board after each move
     GameBoard.printGameBoard();
 
+
+// Check for winner after each move
+if (checkWin(activeMarker)) {
+  console.log(`${activePlayer} wins the game!`);
+  return; // End the game if there is a winner
+}
+
+
     // Increment turnTracker to switch players
     turnTracker++;
   }
   
-  console.log("Game Over!");
+  console.log("Game Over! It's a draw!");
 }
 
 return { playRound };
