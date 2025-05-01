@@ -109,7 +109,7 @@ return {createPlayer, player1, player2, player1Info, player2Info };
 
 
 function gameController() {
-
+  let turnTracker = 0
   let activePlayer;
   let activeMarker;
   let playerPosition;
@@ -134,6 +134,7 @@ console.log("Player One will use 1 to mark on the board, while Player Two will u
 // first we need to write how to make player 1 the active player.
 
 const thePlayers = gamePlayers();
+const updatePlayer = getActivePlayer();
 
 //let activePlayer; //= thePlayers.player1.name;
 
@@ -147,7 +148,7 @@ const p1 = thePlayers.player1.name;
 
 //console.log(activePlayer); // yes this is Player One.
 
-
+/*
 
 const switchPlayers = function() {
 
@@ -161,6 +162,8 @@ const switchPlayers = function() {
 
 //console.log(switchPlayers());
 
+*/
+
 //need a getActivePlayer and getActiveMarker function as switch only switches at every instance!
 
 function getActivePlayer() {
@@ -168,7 +171,7 @@ function getActivePlayer() {
 //If turnTacker is 0 checkOdd is FALSE, if turnTacker is 1 checkOdd is TRUE, if turnTacker is 
 // 2 checkOdd is FALSE, and so on.
 
-let checkTurns = gameController().playRound().turnTracker;
+let checkTurns = turnTracker;
 
 
 function checkOdd(int) {
@@ -248,10 +251,13 @@ function markerPosition(index) {
 
 function playRound(activePlayer, activeMarker, playerPosition) {
 
-  const updatePlayer = getActivePlayer();
+  
+  //const p1 = gamePlayers().player1.name;
 
-  activePlayer = gameController().updatePlayer.activePlayer;
-activeMarker = gameController().updatePlayer.activeMarker;
+  //const p2 = gamePlayers().player2.name;
+
+  activePlayer = updatePlayer.activePlayer;
+activeMarker = updatePlayer.activeMarker;
 
 playerPosition = markerPosition();
 
@@ -259,17 +265,27 @@ playerPosition = markerPosition();
 
 let p = 0;
 
-let turnTracker = p;
+
 
 // need a for loop to play round 9 times
 
 for (p; p < 10; p++) { // p < 10 means up to 9
 
+  
+  
+ const update = getActivePlayer();
+ const activePlayer = update.activePlayer;
+  const activeMarker = update.activeMarker;
+
 console.log(`${activePlayer}'s turn.`);
 
-console.log(`${activePlayer} writes ${activeMarker} at ${playerPosition}`);
+const pos = markerPosition();// player 1 drops their marker
 
-playerPosition; // player 1 drops their marker
+console.log(`${activePlayer} writes ${activeMarker} at ${pos}`);
+
+
+
+
 
 // print board
 
@@ -279,9 +295,13 @@ GameBoard.printGameBoard().gameBoard;
 
 console.log(`Turns: ${turnTracker}.`)
 
+turnTracker++; // move to next player as get active player is based on turn tracker
+
+//if (activePlayer == p2) {
 // switch turns
 
-switchPlayers();
+//switchPlayers();
+//}
 
 // now on the ninth time i need an if statement to say Gave Over
 
@@ -290,30 +310,32 @@ console.log("Game Over");
 
 }
 
+
+
 }
 
 
-return { p, turnTracker, updatePlayer, activePlayer, activeMarker, markerPosition, switchPlayers, getActivePlayer, playerPosition }
+return { p, turnTracker, updatePlayer, activePlayer, activeMarker, markerPosition, getActivePlayer, playerPosition }
 
 } // end of playRound
 
-const playAgain = playRound();
+//const playAgain = playRound();
 
 
-return { playRound, playAgain, thePlayers, getActivePlayer, activePlayer, activeMarker, playerPosition, switchPlayers, markerPosition };
+return { playRound, thePlayers, updatePlayer, getActivePlayer, activePlayer, activeMarker, playerPosition, markerPosition };
 
 }
 
 //gameController();
 
-//const game = gameController();
+const game = gameController();
 
 //game.playRound(1, [1][1]);
 
 
 function gamePlay() {
 
-
+game.playRound();
 
 } 
 
