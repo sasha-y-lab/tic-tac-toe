@@ -45,9 +45,9 @@ gameBoard[i][j] = value;
 
 function printGameBoard() {
 
-  const printBoard = createGameBoard();
+ // const printBoard = createGameBoard();
 
-  console.log(printBoard.gameBoard); // array initially filled with zeros
+  //console.log(printBoard.gameBoard); // array initially filled with zeros
 
   // [[0,0,0], [0,0,0], [0,0,0]]
 
@@ -57,18 +57,23 @@ function printGameBoard() {
  // [0,0,0]
  // [0,0,0]
 
-  return printBoard;
+ console.log(gameBoard);
+
+ return gameBoard;
+
+  //return printBoard;
 
 }
 //printGameBoard();
 
 function getGameBoard() {
 
-  return createGameBoard();
+  return gameBoard;
 }
 
+createGameBoard();
 
-return { createGameBoard, printGameBoard, getGameBoard };
+return { printGameBoard, getGameBoard };
 
 })(); // this is an immediately invoked function which is a module
 
@@ -140,11 +145,11 @@ const updatePlayer = getActivePlayer();
 
 //let activeMarker; // = thePlayers.player1.marker;
 
-const p1 = thePlayers.player1.name;
-  const p2 = thePlayers.player2.name;
+//const p1 = thePlayers.player1.name;
+ // const p2 = thePlayers.player2.name;
 
-  const p1mkr = thePlayers.player1.marker;
-  const p2mkr = thePlayers.player2.marker;
+ // const p1mkr = thePlayers.player1.marker;
+ // const p2mkr = thePlayers.player2.marker;
 
 //console.log(activePlayer); // yes this is Player One.
 
@@ -198,10 +203,10 @@ return { activePlayer, checkTurns, checkOdd, activeMarker }
 // we need a position function or expression or calculation to state what array element the player needs to 
 // put their marker in
 
-function markerPosition(index) {
+function markerPosition(activeMarker) {
 
 
-  const board = GameBoard.getGameBoard().gameBoard; // gives correct output of created initial board not empty array
+  const board = GameBoard.getGameBoard(); // gives correct output of created initial board not empty array
   
   //console.log(board);
   let k = 0;
@@ -223,8 +228,10 @@ function markerPosition(index) {
    
   if (board[k][l] === targetValue){
   
-    console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
-    
+    //console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
+    board[k][l] = activeMarker;
+        console.log(`Placed ${activeMarker} at [${k}][${l}]`);
+        return { k, l };
   }
     
   } // second for loop
@@ -232,14 +239,20 @@ function markerPosition(index) {
   
   
   // now put splice and push the active marker
-  console.log(updatePlayer.activeMarker);
-  board.splice([k][l], 1, updatePlayer.activeMarker);
-  console.log(board.splice([k][l], 1, updatePlayer.activeMarker));
+  //console.log(updatePlayer.activeMarker);
+ // board.splice([k][l], 1, updatePlayer.activeMarker);
+  //console.log(board.splice([k][l], 1, updatePlayer.activeMarker)); // cannot push or slice a 2d array, only 1 d
+
+  //board[k][l] = updatePlayer.activeMarker;
   console.log(board);
+
+  //console.warn("No empty cell found");
+  return { k, l };
+  
   
   
     
-    return { targetValue, board, index, k, l };
+    //return { targetValue, board, index, k, l, updatePlayer };
   }
   
   
@@ -259,7 +272,7 @@ function playRound(activePlayer, activeMarker, playerPosition) {
   activePlayer = updatePlayer.activePlayer;
 activeMarker = updatePlayer.activeMarker;
 
-playerPosition = markerPosition();
+playerPosition = markerPosition(activeMarker);
 
 
 
@@ -279,9 +292,9 @@ for (p; p < 10; p++) { // p < 10 means up to 9
 
 console.log(`${activePlayer}'s turn.`);
 
-const pos = markerPosition();// player 1 drops their marker
+const pos = markerPosition(activeMarker);// player 1 drops their marker
 
-console.log(`${activePlayer} writes ${activeMarker} at ${pos}`);
+console.log(`${activePlayer} writes ${activeMarker} at [${pos.k}][${pos.l}]`);
 
 
 
