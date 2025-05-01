@@ -8,40 +8,19 @@ const GameBoard = (function() {
 
  // set up a factory function for gameBoard
 
- function createGameBoard(row, column, value) {
-  
+ function createGameBoard(row = 3, column = 3, value = 0) {
+  gameBoard = []; // Clear the previous board if any
 
-  row = 3;
-  column = 3;
-  value = 0;
-
-// to create a 2d array you need 2 for loops nested
-
-for (i = 0; i < row; i++) {
-  // iterate the actual array
-gameBoard[i] = [];
-console.log(gameBoard[i]); // undefined
-
-for (j = 0; j < column; j++) {
-// now add columns and rows
-gameBoard[i][j] = value;
-//gameBoard.push(marker);
-
-//console.log(gameBoard[i][j] = value); // output 0
-
-//console.log(gameBoard); //output new array filled with zeros
-
+  // Create a new 2D array with the given row and column dimensions
+  for (let i = 0; i < row; i++) {
+    gameBoard[i] = [];
+    for (let j = 0; j < column; j++) {
+      gameBoard[i][j] = value;
+    }
+  }
 }
 
-}
-
-
-  return { row, column, value, gameBoard };
-}
-
-
-// now that the array is created and essentially the gameboard is created
-// now I need to print the gameboard, so set up another factor function
+// to print the current state of the gameboard
 
 function printGameBoard() {
 
@@ -57,7 +36,7 @@ function printGameBoard() {
  // [0,0,0]
  // [0,0,0]
 
- console.log(gameBoard);
+ console.log(gameBoard.map(row => row.join(' ')).join('\n'));
 
  return gameBoard;
 
@@ -66,14 +45,16 @@ function printGameBoard() {
 }
 //printGameBoard();
 
+// function to access the gameboard
+
 function getGameBoard() {
 
   return gameBoard;
 }
 
-createGameBoard();
 
-return { printGameBoard, getGameBoard };
+
+return { printGameBoard, createGameBoard, getGameBoard };
 
 })(); // this is an immediately invoked function which is a module
 
@@ -85,28 +66,17 @@ function gamePlayers() {
 
 
 function createPlayer(name, marker) {
- 
-  const players = { name, marker };
 
-  return { players, name, marker };
+  return { name, marker };
   
 }
 
 //createPlayer();
 
 const player1 = createPlayer("Player One", 1);
+  const player2 = createPlayer("Player Two", 2);
 
-const player1Info = { name: player1.name, marker: player1.marker };
-
-//console.log({ name: player1.name, marker: player1.marker });
-
-const player2 = createPlayer("Player Two", 2);
-
-const player2Info = { name: player2.name, marker: player2.marker };
-
-//console.log({ name: player2.name, marker: player2.marker });
-
-return {createPlayer, player1, player2, player1Info, player2Info };
+  return { createPlayer, player1, player2 };
 
 }
 
@@ -115,9 +85,8 @@ return {createPlayer, player1, player2, player1Info, player2Info };
 
 function gameController() {
   let turnTracker = 0
-  let activePlayer;
-  let activeMarker;
-  let playerPosition;
+  const thePlayers = gamePlayers();
+  GameBoard.createGameBoard();
 
 // what is the logic in here?
 
@@ -132,71 +101,14 @@ function gameController() {
 
 // so first, 1. start game. 
 
-console.log("Player One will use 1 to mark on the board, while Player Two will use 2 to mark on the board"); // statement for clarity
 
-// how to start? someone has to go first. First is Player one.
 
-// first we need to write how to make player 1 the active player.
-
-const thePlayers = gamePlayers();
-const updatePlayer = getActivePlayer();
-
-//let activePlayer; //= thePlayers.player1.name;
-
-//let activeMarker; // = thePlayers.player1.marker;
-
-//const p1 = thePlayers.player1.name;
- // const p2 = thePlayers.player2.name;
-
- // const p1mkr = thePlayers.player1.marker;
- // const p2mkr = thePlayers.player2.marker;
-
-//console.log(activePlayer); // yes this is Player One.
-
-/*
-
-const switchPlayers = function() {
-
-  activePlayer = activePlayer === p1 ? p2 : p1;
-
-  activeMarker = activeMarker === p1mkr ? p2mkr : p1mkr;
-
-  return { activePlayer, activeMarker, p1, p2, p2mkr, p1mkr };
-
-}
-
-//console.log(switchPlayers());
-
-*/
 
 //need a getActivePlayer and getActiveMarker function as switch only switches at every instance!
 
 function getActivePlayer() {
-/// use the turn tracker
-//If turnTacker is 0 checkOdd is FALSE, if turnTacker is 1 checkOdd is TRUE, if turnTacker is 
-// 2 checkOdd is FALSE, and so on.
-
-let checkTurns = turnTracker;
-
-
-function checkOdd(int) {
-  return int % 2;
-}
-
-if(checkOdd(checkTurns)){
-  // player2 is active
-  activePlayer = thePlayers.player2.name;
-  activeMarker = thePlayers.player2.marker;
-
-}else{
-  // player1 is active
-
-  activePlayer = thePlayers.player1.name;
-  activeMarker = thePlayers.player1.marker;
-};
-
-return { activePlayer, checkTurns, checkOdd, activeMarker }
-
+  const activePlayer = turnTracker % 2 === 0 ? thePlayers.player1 : thePlayers.player2;
+  return { activePlayer: activePlayer.name, activeMarker: activePlayer.marker };
 }
 
 
@@ -204,153 +116,50 @@ return { activePlayer, checkTurns, checkOdd, activeMarker }
 // put their marker in
 
 function markerPosition(activeMarker) {
+  const board = GameBoard.getGameBoard();
+  let targetValue = 0; // Empty spot value to place the marker
 
-
-  const board = GameBoard.getGameBoard(); // gives correct output of created initial board not empty array
-  
-  //console.log(board);
-  let k = 0;
-  let l = 0;
-   index = k;
-  
-   let targetValue = 0;
-  
-     // index = // to get the index of each element i need a for loop
-  
-  for (k; k < board.length; k++) {
-  
-    for (l; l < board.length; l++) {
-    console.log(`Index: ${[k]}, Element: ${board[k][l]}`); // index can change to l to show individual index of elements
-  // k alone on board lists just all elements in each row
-    
-  // now check values for zero
-  // use if statements
-   
-  if (board[k][l] === targetValue){
-  
-    //console.log(`Found ${targetValue} at [${k}][${l}]`); // prints what element has zero
-    board[k][l] = activeMarker;
-        console.log(`Placed ${activeMarker} at [${k}][${l}]`);
+  // Search for the first empty spot (targetValue is 0)
+  for (let k = 0; k < board.length; k++) {
+    for (let l = 0; l < board[k].length; l++) {
+      if (board[k][l] === targetValue) {
+        board[k][l] = activeMarker; // Place the marker
+        console.log(`${activeMarker === 1 ? 'Player One' : 'Player Two'} places marker ${activeMarker} at [${k}, ${l}]`);
         return { k, l };
+      }
+    }
   }
-    
-  } // second for loop
-  } // first for loop
-  
-  
-  // now put splice and push the active marker
-  //console.log(updatePlayer.activeMarker);
- // board.splice([k][l], 1, updatePlayer.activeMarker);
-  //console.log(board.splice([k][l], 1, updatePlayer.activeMarker)); // cannot push or slice a 2d array, only 1 d
 
-  //board[k][l] = updatePlayer.activeMarker;
-  console.log(board);
+  // If no empty spot is found, return invalid coordinates
+  console.warn("No empty cell found");
+  return { k: -1, l: -1 }; // Return invalid coordinates
+}
 
-  //console.warn("No empty cell found");
-  return { k, l };
+// function to play the game loop
+
+function playRound() {
+  console.log("Player One will use 1 to mark on the board, while Player Two will use 2 to mark on the board.");
   
-  
-  
-    
-    //return { targetValue, board, index, k, l, updatePlayer };
+  for (let turn = 0; turn < 9; turn++) {
+    const { activePlayer, activeMarker } = getActivePlayer(); // Get current player and marker
+    console.log(`${activePlayer}'s turn.`);
+
+    // Place marker on the board
+    const pos = markerPosition(activeMarker);
+
+    // Print board after each move
+    GameBoard.printGameBoard();
+
+    // Increment turnTracker to switch players
+    turnTracker++;
   }
   
-  
-   
-
-
-
-// so now start with Player 1
-
-function playRound(activePlayer, activeMarker, playerPosition) {
-
-  
-  //const p1 = gamePlayers().player1.name;
-
-  //const p2 = gamePlayers().player2.name;
-
-  activePlayer = updatePlayer.activePlayer;
-activeMarker = updatePlayer.activeMarker;
-
-playerPosition = markerPosition(activeMarker);
-
-
-
-let p = 0;
-
-
-
-// need a for loop to play round 9 times
-
-for (p; p < 10; p++) { // p < 10 means up to 9
-
-  
-  
- const update = getActivePlayer();
- const activePlayer = update.activePlayer;
-  const activeMarker = update.activeMarker;
-
-console.log(`${activePlayer}'s turn.`);
-
-const pos = markerPosition(activeMarker);// player 1 drops their marker
-
-console.log(`${activePlayer} writes ${activeMarker} at [${pos.k}][${pos.l}]`);
-
-
-
-
-
-// print board
-
-GameBoard.printGameBoard().gameBoard;
-
-// log turn
-
-console.log(`Turns: ${turnTracker}.`)
-
-turnTracker++; // move to next player as get active player is based on turn tracker
-
-//if (activePlayer == p2) {
-// switch turns
-
-//switchPlayers();
-//}
-
-// now on the ninth time i need an if statement to say Gave Over
-
-if (p === 9) {
-console.log("Game Over");
-
+  console.log("Game Over!");
 }
 
-
-
+return { playRound };
 }
 
-
-return { p, turnTracker, updatePlayer, activePlayer, activeMarker, markerPosition, getActivePlayer, playerPosition }
-
-} // end of playRound
-
-//const playAgain = playRound();
-
-
-return { playRound, thePlayers, updatePlayer, getActivePlayer, activePlayer, activeMarker, playerPosition, markerPosition };
-
-}
-
-//gameController();
-
+// Start the game
 const game = gameController();
-
-//game.playRound(1, [1][1]);
-
-
-function gamePlay() {
-
-game.playRound();
-
-} 
-
-gamePlay();
-
+game.playRound(); // Run the game loop
