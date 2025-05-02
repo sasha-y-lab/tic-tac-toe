@@ -195,7 +195,7 @@ if (checkWin(activeMarker)) {
   console.log("Game Over! It's a draw!");
 }
 
-return { playRound };
+return { playRound, checkWin };
 }
 
 // Start the game
@@ -225,9 +225,6 @@ function renderBoard() {
   brdContainer.innerHTML = ""; // clear old content
 
   
-
-
-
 //console.log(board[0][1]); 
 //console.log(board[1][0]);
 //console.log(board[2][2]);
@@ -246,6 +243,7 @@ markerDiv.dataset.row = row;
 markerDiv.dataset.col = col;
 
 
+
 const markerItem = document.createElement("div");
 markerItem.classList.add("marker-item");
 markerItem.textContent = marker;
@@ -257,7 +255,7 @@ brdContainer.appendChild(markerDiv);
 // Add event listener only if spot is empty
 if (marker === "") {
   markerDiv.addEventListener("click", handleClick);
-}
+} 
 
   }
 
@@ -279,13 +277,88 @@ function handleClick(event) {
 
   // Re-render the board
   renderBoard();
+
+// winning logic
+
+
+
 }
 
-console.log(board); 
+console.log(board);
+
+const showWinningMsg = () => {
+
+  const winMsgElement = document.createElement("div");
+  winMsgElement.classList.add("win-msg");
+  brdContainer.appendChild(winMsgElement);
+  
+  const markerDivDisables = document.querySelectorAll(".marker-div");
+  
+  markerDivDisables.forEach(markerDivDisable => {
+  
+  // Check rows: if all the cells in the row contain the same marker.
+  for (let row = 0; row < board.length; row++) {
+    if (board[row].every(cell => cell == "X")) {
+  markerDivDisable.removeEventListener("click", handleClick);
+  
+      winMsgElement.textContent = `Player One wins!`;
+     
+    } else if (board[row].every(cell => cell == "O")) {
+      markerDivDisable.removeEventListener("click", handleClick);
+      winMsgElement.textContent = `Player Two wins!`;
+    } 
+  }
+  
+  // Check columns: if all the cells in the column contain the same marker.
+  for (let col = 0; col < board[0].length; col++) {
+    if (board.every(row => row[col] == "X")) {
+      markerDivDisable.removeEventListener("click", handleClick);
+      winMsgElement.textContent = `Player One wins!`;
+    } else if (board.every(row => row[col] == "O")) {
+      markerDivDisable.removeEventListener("click", handleClick);
+      winMsgElement.textContent = `Player Two wins!`;
+    } 
+  }
+  
+  // Check diagonals: if all the cells in the diagonal contain the same marker.
+  if (board.every((row, index) => row[index] == "X")) {
+    markerDivDisable.removeEventListener("click", handleClick);
+    winMsgElement.textContent = `Player One wins!`;
+    
+  } else if (board.every((row, index) => row[index] == "O")) {
+    markerDivDisable.removeEventListener("click", handleClick);
+    winMsgElement.textContent = `Player Two wins!`;
+  
+  } 
+  
+   
+  
+  if (board.every((row, index) => row[board.length - 1 - index] == "X")) {
+    markerDivDisable.removeEventListener("click", handleClick);
+    winMsgElement.textContent = `Player One wins!`;
+  } else if (board.every((row, index) => row[board.length - 1 - index] == "O")) {
+    markerDivDisable.removeEventListener("click", handleClick);
+    winMsgElement.textContent = `Player Two wins!`;
+  } 
+  
+  }); // end of for each
+  
+  
+  
+  } // end of show msg
+  showWinningMsg();
+
 
 }
 
 renderBoard();
+
+//add a display element that shows the results upon game end
+
+
+
+
+
 
 
 return { board, renderBoard, brdContainer };
