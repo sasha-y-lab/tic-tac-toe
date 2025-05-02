@@ -210,40 +210,41 @@ const DisplayController = (function() {
 // Write a function that will render the contents of the gameboard array to the webpage
 
 const brdContainer = document.querySelector("#board-container");
-const board = GameBoard.getGameBoard();
+//const board = GameBoard.getGameBoard();
+let currentPlayer = "X";
+
+let board = [
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""]
+];
+
 
 function renderBoard() {
 
-  
+  brdContainer.innerHTML = ""; // clear old content
 
   
 
-  // iterate through gameboard array and assign variable to each marker
-  // rememebr its a 2d array
-
- //const newMarkers = [{player1: "X"}, {player2: "O"}];
-
-
-
-//let marker = board;
-
-//board.push(["X", "O", "X"]);
-//board.push(["X", "X", "O"]);
-//board.push(["X", "O", "X"]);
 
 
 //console.log(board[0][1]); 
 //console.log(board[1][0]);
 //console.log(board[2][2]);
 
-  for (let d = 0; d < board.length; d++) {
+  for (let row = 0; row < board.length; row++) {
 
-    for (let g = 0; g < board.length; g++) {
+    for (let col = 0; col < board.length; col++) {
 
- let marker = board[d][g];
+ let marker = board[row][col];
 
 const markerDiv = document.createElement("div");
 markerDiv.classList.add("marker-div");
+//markerDiv.setAttribute("data-row", "row");
+//markerDiv.setAttribute("data-col", "col");
+markerDiv.dataset.row = row;
+markerDiv.dataset.col = col;
+
 
 const markerItem = document.createElement("div");
 markerItem.classList.add("marker-item");
@@ -253,8 +254,31 @@ markerDiv.appendChild(markerItem);
 
 brdContainer.appendChild(markerDiv);
 
+// Add event listener only if spot is empty
+if (marker === "") {
+  markerDiv.addEventListener("click", handleClick);
+}
+
   }
 
+}
+
+
+function handleClick(event) {
+  const row = parseInt(event.currentTarget.dataset.row);
+  const col = parseInt(event.currentTarget.dataset.col);
+
+  // If the spot is already taken, do nothing
+  if (board[row][col] !== "") return;
+
+  // Set marker
+  board[row][col] = currentPlayer;
+
+  // Switch player
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+  // Re-render the board
+  renderBoard();
 }
 
 console.log(board); 
@@ -263,83 +287,8 @@ console.log(board);
 
 renderBoard();
 
-//Write the function that allow players to add marks to a specific spot on the board
-// by letting players click on a board square to place their marker
-// Don’t forget the logic that keeps players from playing in spots that are already taken!
 
-
-function addMark() {
-
-// need to click on a square/div. so open that div
-
-const clickDivs = document.querySelectorAll(".col");
-
-//const getMarkerDiv = document.querySelector(".marker-div");
-
-const player1 = { name: "Player One", marker: "X" };
-
-const player2 = { name: "Player Two", marker: "O" };
-
-const x = player1.marker;
-
-const o = player2.marker;
-
-//const getCoords = renderBoard();
-// do for each then add event listener to isolate one element at a time
-
-clickDivs.forEach(clickDiv => {
-
-clickDiv.addEventListener("click", (e) => {
-
-  console.log(e.target);
-
-  
-
-// now that someone has clicked, what happens? The marker needs to show up
-// the marker, whichever one it is, needs to be pushed into the board array.
-//for (let c = 0; c < board.length; c++) {
-  //for (let e = 0; e < board.length; e++) {
-
-board.push([x]);
-
-
-
-let activeMarker = x ? x : o;
-
-console.log(activeMarker);
-
-if(activeMarker == "X"){
-  // player2 is active
-  board.push([o]);
-} else {
-  return;
-};
-
-  //}
-
-//}
-
-
-
-
-
-console.log(board);
-
-
-
-}); // event listener on divs
-
-
-}); // for each loop on divs
-
-return { x, o, player1, player2 };
-
-}
-
-addMark();
-
-
-return { board, addMark, renderBoard, brdContainer };
+return { board, renderBoard, brdContainer };
 })();
 
 
