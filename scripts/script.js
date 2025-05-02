@@ -175,7 +175,7 @@ function playRound() {
     console.log(`${activePlayer}'s turn.`);
 
     // Place marker on the board
-    const pos = markerPosition(activeMarker);
+    markerPosition(activeMarker);
 
     // Print board after each move
     GameBoard.printGameBoard();
@@ -259,7 +259,6 @@ brdContainer.appendChild(markerDiv);
 
 console.log(board); 
 
-
 }
 
 renderBoard();
@@ -275,19 +274,17 @@ function addMark() {
 
 const clickDivs = document.querySelectorAll(".col");
 
+//const getMarkerDiv = document.querySelector(".marker-div");
+
 const player1 = { name: "Player One", marker: "X" };
 
 const player2 = { name: "Player Two", marker: "O" };
 
-//logic for active player
+const x = player1.marker;
 
+const o = player2.marker;
 
-
-const switchMarker = function() {
-  const activeMarker = player1.marker ? player2.marker : player1.marker;
-return activeMarker;
-};
-
+//const getCoords = renderBoard();
 // do for each then add event listener to isolate one element at a time
 
 clickDivs.forEach(clickDiv => {
@@ -296,25 +293,46 @@ clickDiv.addEventListener("click", (e) => {
 
   console.log(e.target);
 
-  const turn = switchMarker();
+  
+
 // now that someone has clicked, what happens? The marker needs to show up
 // the marker, whichever one it is, needs to be pushed into the board array.
+//for (let c = 0; c < board.length; c++) {
+  //for (let e = 0; e < board.length; e++) {
 
-board.push([turn]);
-if (player1.marker) {
-switchMarker();
-}
+board.push([x]);
+
+
+
+let activeMarker = x ? x : o;
+
+console.log(activeMarker);
+
+if(activeMarker == "X"){
+  // player2 is active
+  board.push([o]);
+} else {
+  return;
+};
+
+  //}
+
+//}
+
+
 
 
 
 console.log(board);
+
+
 
 }); // event listener on divs
 
 
 }); // for each loop on divs
 
-return { switchMarker, player1, player2 }
+return { x, o, player1, player2 };
 
 }
 
