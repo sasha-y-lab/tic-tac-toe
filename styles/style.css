@@ -9,6 +9,7 @@ display: flex;
 #main-container {
 width: 100vw;
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
 }
@@ -57,4 +58,77 @@ padding-top: 40px;
     grid-row: 4 / 5;
     align-self: center;
     justify-self: center;
+}
+
+#popup {
+    display: flex;
+    font-size: small;
+    flex-direction: column;
+    background-color: #FFAE03;
+    padding: 20px;
+    border-radius: 8px;
+    border-style: none;
+    width: 250px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.player-1-sect, .player-2-sect {
+    display: flex;
+    flex-direction: column;
+
+}
+
+label {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.submit-sect {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+#submit {
+    display: flex;
+    background-color: transparent;
+    border-style: none;
+    display: inline-block;
+}
+
+input {
+    border-color: #2B303A;
+    border-width: 1px;
+    border-style: solid;
+}
+
+input:invalid {
+    border-color: #B53434;
+    border-width: 4px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #053C5E;
+}
+
+#btn-div {
+
+    display: flex;
+    column-gap: 50px;
+}
+
+#start-btn, #restart-btn {
+    border-style: none;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    width: 100px;
+
 }

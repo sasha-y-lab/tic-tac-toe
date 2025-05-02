@@ -220,6 +220,75 @@ let board = [
 ];
 
 
+//  allow players to put in their names, include a button to start/restart the game
+
+
+
+function startRestart() {
+
+  const mainContainer = document.querySelector("#main-container");
+
+const buttons = document.createElement("div");
+buttons.setAttribute("id", "btn-div");
+
+  const startBtn = document.createElement("button");
+  startBtn.setAttribute("id", "start-btn");
+  startBtn.textContent = "Start";
+
+  buttons.appendChild(startBtn);
+
+  const restartBtn = document.createElement("button");
+  restartBtn.setAttribute("id", "restart-btn");
+  restartBtn.textContent = "Restart";
+
+  buttons.appendChild(restartBtn);
+
+  
+  mainContainer.appendChild(buttons);
+
+/*
+  const dialog = document.querySelector("dialog");  
+ 
+ 
+   const formEl = document.querySelector(".form");
+  
+   
+   formEl.addEventListener('submit', (e) => {
+ 
+     e.preventDefault(); // We don't want to submit this fake form
+ 
+     const formData = new FormData(formEl);
+
+     const player1name = formData.get('player1_name');
+     const player2name = formData.get('player2_name');
+
+     validateForm();
+     formEl.reset();
+
+
+     dialog.close(); // Have to send the form value here.
+ 
+      return { player1name, player2name }
+ 
+   });
+
+   function validateForm() {
+    let player1name = document.forms["form"]["player1_name"].value;
+    let player2name = document.forms["form"]["player2_name"].value;
+
+    if (player1name === "" || player2name === "") {
+      alert("Field must be filled out");
+      return false;
+    }
+    return true;
+  }
+*/
+
+}
+
+startRestart();
+
+
 function renderBoard() {
 
   brdContainer.innerHTML = ""; // clear old content
@@ -353,15 +422,9 @@ const showWinningMsg = () => {
 
 renderBoard();
 
-//add a display element that shows the results upon game end
 
 
-
-
-
-
-
-return { board, renderBoard, brdContainer };
+return { board, startRestart, renderBoard, brdContainer };
 })();
 
 
