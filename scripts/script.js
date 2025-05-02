@@ -88,20 +88,6 @@ function gameController() {
   const thePlayers = gamePlayers();
   GameBoard.createGameBoard();
 
-// what is the logic in here?
-
-// 1. start game - check
-// 2. Player 1 goes check
-// 3. player 2 goes
-// 4. alternate 7 more times (a total of 9 turns) check with for loop
-// 5. check who won
-// 6. declare winner
-
-
-
-// so first, 1. start game. 
-
-
 
 
 //need a getActivePlayer and getActiveMarker function as switch only switches at every instance!
@@ -213,5 +199,64 @@ return { playRound };
 }
 
 // Start the game
-const game = gameController();
-game.playRound(); // Run the game loop
+//const game = gameController();
+//game.playRound(); // Run the game loop
+
+
+// #4: create an object that will handle the display/DOM logic
+
+//const updateDisplay = function() {
+
+//const renderBrd = renderBoard();
+
+//return renderBrd;
+
+//}
+
+//updateDisplay();
+
+
+// Write a function that will render the contents of the gameboard array to the webpage
+
+function renderBoard() {
+
+  const brdContainer = document.querySelector("#board-container");
+
+  const board = GameBoard.getGameBoard();
+
+  // iterate through gameboard array and assign variable to each marker
+  // rememebr its a 2d array
+
+  for (let d = 0; d < board.length; d++) {
+
+    for (let g = 0; g < board.length; g++) {
+
+let marker = board[d][g];
+
+console.log(marker);
+
+
+const markerDiv = document.createElement("div");
+markerDiv.classList.add("marker-div");
+
+const markerItem = document.createElement("p");
+markerItem.classList.add("marker-item");
+markerItem.textContent = marker;
+
+markerDiv.appendChild(markerItem);
+
+brdContainer.appendChild(markerDiv);
+
+  }
+
+}
+
+console.log(board); // this is an empty board
+
+
+ 
+
+return { board, brdContainer }
+}
+
+renderBoard();
