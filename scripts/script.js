@@ -227,14 +227,22 @@ function renderBoard() {
   // iterate through gameboard array and assign variable to each marker
   // rememebr its a 2d array
 
-  for (let d = 0; d < board.length; d++) {
+ //const newMarkers = [{player1: "X"}, {player2: "O"}];
 
-    for (let g = 0; g < board.length; g++) {
+ // for (let d = 0; d < board.length; d++) {
 
-let marker = board[d][g];
+  //  for (let g = 0; g < board.length; g++) {
 
-console.log(marker);
+let marker = board;
 
+marker.push(["X", "O", "X"]);
+marker.push(["X", "X", "O"]);
+marker.push(["X", "O", "X"]);
+
+
+console.log(marker[0][1]); 
+console.log(marker[1][0]);
+console.log(marker[2][2]);
 
 const markerDiv = document.createElement("div");
 markerDiv.classList.add("marker-div");
@@ -247,11 +255,12 @@ markerDiv.appendChild(markerItem);
 
 brdContainer.appendChild(markerDiv);
 
-  }
+  //}
 
-}
+//}
 
 console.log(board); // this is an empty board
+
 
 
  
