@@ -251,7 +251,7 @@ console.log(board[2][2]);
 const markerDiv = document.createElement("div");
 markerDiv.classList.add("marker-div");
 
-const markerItem = document.createElement("p");
+const markerItem = document.createElement("div");
 markerItem.classList.add("marker-item");
 markerItem.textContent = marker;
 
