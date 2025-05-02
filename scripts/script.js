@@ -203,26 +203,20 @@ return { playRound };
 //game.playRound(); // Run the game loop
 
 
-// #4: create an object that will handle the display/DOM logic
+// #4: create an object that will handle the display/DOM logic - create a module
 
-//const updateDisplay = function() {
-
-//const renderBrd = renderBoard();
-
-//return renderBrd;
-
-//}
-
-//updateDisplay();
-
+const DisplayController = (function() {
 
 // Write a function that will render the contents of the gameboard array to the webpage
 
+const brdContainer = document.querySelector("#board-container");
+const board = GameBoard.getGameBoard();
+
 function renderBoard() {
 
-  const brdContainer = document.querySelector("#board-container");
+  
 
-  const board = GameBoard.getGameBoard();
+  
 
   // iterate through gameboard array and assign variable to each marker
   // rememebr its a 2d array
@@ -233,14 +227,14 @@ function renderBoard() {
 
 //let marker = board;
 
-board.push(["X", "O", "X"]);
-board.push(["X", "X", "O"]);
-board.push(["X", "O", "X"]);
+//board.push(["X", "O", "X"]);
+//board.push(["X", "X", "O"]);
+//board.push(["X", "O", "X"]);
 
 
-console.log(board[0][1]); 
-console.log(board[1][0]);
-console.log(board[2][2]);
+//console.log(board[0][1]); 
+//console.log(board[1][0]);
+//console.log(board[2][2]);
 
   for (let d = 0; d < board.length; d++) {
 
@@ -263,13 +257,72 @@ brdContainer.appendChild(markerDiv);
 
 }
 
-console.log(board); // this is an empty board
+console.log(board); 
 
 
-
- 
-
-return { board, brdContainer }
 }
 
 renderBoard();
+
+//Write the function that allow players to add marks to a specific spot on the board
+// by letting players click on a board square to place their marker
+// Don’t forget the logic that keeps players from playing in spots that are already taken!
+
+
+function addMark() {
+
+// need to click on a square/div. so open that div
+
+const clickDivs = document.querySelectorAll(".col");
+
+const player1 = { name: "Player One", marker: "X" };
+
+const player2 = { name: "Player Two", marker: "O" };
+
+//logic for active player
+
+
+
+const switchMarker = function() {
+  const activeMarker = player1.marker ? player2.marker : player1.marker;
+return activeMarker;
+};
+
+// do for each then add event listener to isolate one element at a time
+
+clickDivs.forEach(clickDiv => {
+
+clickDiv.addEventListener("click", (e) => {
+
+  console.log(e.target);
+
+  const turn = switchMarker();
+// now that someone has clicked, what happens? The marker needs to show up
+// the marker, whichever one it is, needs to be pushed into the board array.
+
+board.push([turn]);
+if (player1.marker) {
+switchMarker();
+}
+
+
+
+console.log(board);
+
+}); // event listener on divs
+
+
+}); // for each loop on divs
+
+return { switchMarker, player1, player2 }
+
+}
+
+addMark();
+
+
+return { board, addMark, renderBoard, brdContainer };
+})();
+
+
+
