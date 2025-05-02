@@ -229,20 +229,24 @@ function renderBoard() {
 
  //const newMarkers = [{player1: "X"}, {player2: "O"}];
 
- // for (let d = 0; d < board.length; d++) {
-
-  //  for (let g = 0; g < board.length; g++) {
-
-let marker = board;
-
-marker.push(["X", "O", "X"]);
-marker.push(["X", "X", "O"]);
-marker.push(["X", "O", "X"]);
 
 
-console.log(marker[0][1]); 
-console.log(marker[1][0]);
-console.log(marker[2][2]);
+//let marker = board;
+
+board.push(["X", "O", "X"]);
+board.push(["X", "X", "O"]);
+board.push(["X", "O", "X"]);
+
+
+console.log(board[0][1]); 
+console.log(board[1][0]);
+console.log(board[2][2]);
+
+  for (let d = 0; d < board.length; d++) {
+
+    for (let g = 0; g < board.length; g++) {
+
+ let marker = board[d][g];
 
 const markerDiv = document.createElement("div");
 markerDiv.classList.add("marker-div");
@@ -255,9 +259,9 @@ markerDiv.appendChild(markerItem);
 
 brdContainer.appendChild(markerDiv);
 
-  //}
+  }
 
-//}
+}
 
 console.log(board); // this is an empty board
 
