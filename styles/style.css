@@ -21,6 +21,7 @@ align-items: center;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 2px;
     justify-content: center;
+    margin-top: -50px;
 }
 
 .col {
@@ -53,11 +54,13 @@ align-items: center;
 
 .win-msg {
     display: grid;
-padding-top: 40px;
+padding-top: 20px;
+padding-bottom: 20px;
     grid-column: 1 / 4;
     grid-row: 4 / 5;
     align-self: center;
     justify-self: center;
+    font-weight: bold;
 }
 
 #popup {
@@ -123,7 +126,7 @@ input:focus {
     column-gap: 50px;
 }
 
-#start-btn, #restart-btn {
+#start-btn {
     border-style: none;
     background-color: blue;
     color: white;
@@ -131,4 +134,10 @@ input:focus {
     padding: 8px;
     width: 100px;
 
+}
+
+dialog {
+    border-radius: 8px;
+    padding: 0px;
+    border-style: none;
 }

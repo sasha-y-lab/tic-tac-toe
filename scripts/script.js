@@ -220,73 +220,72 @@ let board = [
 ];
 
 
+
+
 //  allow players to put in their names, include a button to start/restart the game
 
-
+document.addEventListener("DOMContentLoaded", () => {
+  startRestart(); // Call startRestart after DOM content is loaded
+});
 
 function startRestart() {
-
   const mainContainer = document.querySelector("#main-container");
 
-const buttons = document.createElement("div");
-buttons.setAttribute("id", "btn-div");
+  // Check if start button already exists
+  if (!document.querySelector("#start-btn")) {
+      const buttons = document.createElement("div");
+      buttons.setAttribute("id", "btn-div");
 
-  const startBtn = document.createElement("button");
-  startBtn.setAttribute("id", "start-btn");
-  startBtn.textContent = "Start";
+      const startBtn = document.createElement("button");
+      startBtn.setAttribute("id", "start-btn");
+      startBtn.textContent = "Start";
 
-  buttons.appendChild(startBtn);
+      buttons.appendChild(startBtn);
+      mainContainer.appendChild(buttons);
 
-  const restartBtn = document.createElement("button");
-  restartBtn.setAttribute("id", "restart-btn");
-  restartBtn.textContent = "Restart";
-
-  buttons.appendChild(restartBtn);
-
-  
-  mainContainer.appendChild(buttons);
-
-/*
-  const dialog = document.querySelector("dialog");  
- 
- 
-   const formEl = document.querySelector(".form");
-  
-   
-   formEl.addEventListener('submit', (e) => {
- 
-     e.preventDefault(); // We don't want to submit this fake form
- 
-     const formData = new FormData(formEl);
-
-     const player1name = formData.get('player1_name');
-     const player2name = formData.get('player2_name');
-
-     validateForm();
-     formEl.reset();
-
-
-     dialog.close(); // Have to send the form value here.
- 
-      return { player1name, player2name }
- 
-   });
-
-   function validateForm() {
-    let player1name = document.forms["form"]["player1_name"].value;
-    let player2name = document.forms["form"]["player2_name"].value;
-
-    if (player1name === "" || player2name === "") {
-      alert("Field must be filled out");
-      return false;
-    }
-    return true;
+      // Add event listener to open dialog when Start button is clicked
+      startBtn.addEventListener("click", () => {
+          const dialog = document.querySelector("#dialog");
+          if (dialog) {
+              dialog.showModal(); // This should open the dialog
+          } else {
+              console.error("Dialog not found!");
+          }
+      });
   }
-*/
-
 }
 
-startRestart();
+const formEl = document.querySelector(".form");
+const dialog = document.querySelector("#dialog");
+//const popup = document.querySelector("#popup");
+
+if (formEl && dialog) {
+    formEl.addEventListener("submit", (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(formEl);
+        const player1name = formData.get("player1_name");
+        const player2name = formData.get("player2_name");
+
+        // Validate the form input
+        if (validateForm(player1name, player2name)) {
+            displayPlayerNames(player1name, player2name); // Display player names
+            formEl.reset();
+            dialog.close(); // Close the dialog
+        }
+    });
+}
+
+function validateForm(player1name, player2name) {
+    if (!player1name || !player2name) {
+        alert("Both player names must be filled out.");
+        return false;
+    }
+    return true;
+}
+
+
+
 
 
 function renderBoard() {
@@ -424,7 +423,7 @@ renderBoard();
 
 
 
-return { board, startRestart, renderBoard, brdContainer };
+return { board, renderBoard, brdContainer };
 })();
 
 
