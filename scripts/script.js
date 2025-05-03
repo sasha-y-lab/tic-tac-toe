@@ -258,6 +258,8 @@ function startRestart() {
             ["", "", ""]
           ];
 
+          startBtn.textContent = "Restart";
+          
           if (dialog) {
               dialog.showModal(); // This should open the dialog
           } else {
