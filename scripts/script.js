@@ -210,6 +210,8 @@ const DisplayController = (function() {
 // Write a function that will render the contents of the gameboard array to the webpage
 
 const brdContainer = document.querySelector("#board-container");
+
+
 //const board = GameBoard.getGameBoard();
 let currentPlayer = "X";
 
@@ -232,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function startRestart() {
   const mainContainer = document.querySelector("#main-container");
-
+  
   // Check if start button already exists
   if (!document.querySelector("#start-btn")) {
       const buttons = document.createElement("div");
@@ -248,6 +250,14 @@ function startRestart() {
       // Add event listener to open dialog when Start button is clicked
       startBtn.addEventListener("click", () => {
           const dialog = document.querySelector("#dialog");
+          brdContainer.innerHTML = "";
+          
+          board = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+          ];
+
           if (dialog) {
               dialog.showModal(); // This should open the dialog
           } else {
@@ -255,7 +265,10 @@ function startRestart() {
           }
       });
   }
+  
 }
+
+
 
 const formEl = document.querySelector(".form");
 const dialog = document.querySelector("#dialog");
@@ -264,14 +277,22 @@ const dialog = document.querySelector("#dialog");
 if (formEl && dialog) {
     formEl.addEventListener("submit", (e) => {
         e.preventDefault(); // Prevent default form submission
-
+        
         const formData = new FormData(formEl);
         const player1name = formData.get("player1_name");
         const player2name = formData.get("player2_name");
+      //  const markerItem = document.querySelectorAll(".marker-item");
+       // const markerDiv = document.querySelectorAll(".marker-div");
+       // markerDiv.addEventListener("click", handleClick);
+        
 
         // Validate the form input
         if (validateForm(player1name, player2name)) {
+         
             displayPlayerNames(player1name, player2name); // Display player names
+            
+            renderBoard();
+
             formEl.reset();
             dialog.close(); // Close the dialog
         }
@@ -288,7 +309,7 @@ function validateForm(player1name, player2name) {
 
 
 function displayPlayerNames(player1name, player2name) {
-  
+
  // const startBtn = document.querySelector("#start-btn");
 const mainContainer = document.querySelector("#main-container");
 
@@ -311,11 +332,13 @@ const mainContainer = document.querySelector("#main-container");
       playersNameDiv.appendChild(player2Div);
 
       mainContainer.insertBefore(playersNameDiv, brdContainer);
+      
   }
 
   // Update the player names in the UI
   playersNameDiv.querySelector("#player1").textContent = `Player 1: ${player1name}`;
   playersNameDiv.querySelector("#player2").textContent = `Player 2: ${player2name}`;
+  
 }
 
 
@@ -362,6 +385,8 @@ if (marker === "") {
 }
 
 
+
+
 function handleClick(event) {
   const row = parseInt(event.currentTarget.dataset.row);
   const col = parseInt(event.currentTarget.dataset.col);
@@ -393,6 +418,8 @@ const showWinningMsg = () => {
   brdContainer.appendChild(winMsgElement);
   
   const markerDivDisables = document.querySelectorAll(".marker-div");
+ //const startBtn = document.querySelector("#start-btn");
+ //const markerItem = document.querySelectorAll(".marker-item");
   
   markerDivDisables.forEach(markerDivDisable => {
   
@@ -402,32 +429,50 @@ const showWinningMsg = () => {
   markerDivDisable.removeEventListener("click", handleClick);
   
       winMsgElement.textContent = `Player One wins!`;
+     // markerItem.textContent = "";
+     
+      //markerDivDisable,addEventListener("click", handleClick);
+      
      
     } else if (board[row].every(cell => cell == "O")) {
-      markerDivDisable.removeEventListener("click", handleClick);
+     markerDivDisable.removeEventListener("click", handleClick);
       winMsgElement.textContent = `Player Two wins!`;
+     // markerItem.textContent = "";
+     // markerDivDisable,addEventListener("click", handleClick);
     } 
   }
   
   // Check columns: if all the cells in the column contain the same marker.
   for (let col = 0; col < board[0].length; col++) {
     if (board.every(row => row[col] == "X")) {
-      markerDivDisable.removeEventListener("click", handleClick);
+     markerDivDisable.removeEventListener("click", handleClick);
       winMsgElement.textContent = `Player One wins!`;
+     // markerItem.textContent = "";
+     // markerDivDisable,addEventListener("click", handleClick);
+      
     } else if (board.every(row => row[col] == "O")) {
       markerDivDisable.removeEventListener("click", handleClick);
       winMsgElement.textContent = `Player Two wins!`;
+     // markerItem.textContent = "";
+     // markerDivDisable,addEventListener("click", handleClick);
+      
     } 
   }
   
   // Check diagonals: if all the cells in the diagonal contain the same marker.
   if (board.every((row, index) => row[index] == "X")) {
-    markerDivDisable.removeEventListener("click", handleClick);
+   markerDivDisable.removeEventListener("click", handleClick);
     winMsgElement.textContent = `Player One wins!`;
+   // markerItem.textContent = "";
+   // markerDivDisable,addEventListener("click", handleClick);
+    
     
   } else if (board.every((row, index) => row[index] == "O")) {
     markerDivDisable.removeEventListener("click", handleClick);
     winMsgElement.textContent = `Player Two wins!`;
+   // markerItem.textContent = "";
+    //markerDivDisable,addEventListener("click", handleClick);
+    
   
   } 
   
@@ -436,9 +481,15 @@ const showWinningMsg = () => {
   if (board.every((row, index) => row[board.length - 1 - index] == "X")) {
     markerDivDisable.removeEventListener("click", handleClick);
     winMsgElement.textContent = `Player One wins!`;
+    //markerItem.textContent = "";
+   // markerDivDisable,addEventListener("click", handleClick);
+    
   } else if (board.every((row, index) => row[board.length - 1 - index] == "O")) {
-    markerDivDisable.removeEventListener("click", handleClick);
+   markerDivDisable.removeEventListener("click", handleClick);
     winMsgElement.textContent = `Player Two wins!`;
+    //markerItem.textContent = "";
+  //  markerDivDisable,addEventListener("click", handleClick);
+    
   } 
   
   }); // end of for each
@@ -451,11 +502,11 @@ const showWinningMsg = () => {
 
 }
 
-renderBoard();
+//renderBoard();
 
 
 
-return { board, renderBoard, brdContainer };
+return { board, renderBoard, startRestart, brdContainer };
 })();
 
 
