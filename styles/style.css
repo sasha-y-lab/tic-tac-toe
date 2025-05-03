@@ -14,6 +14,11 @@ justify-content: center;
 align-items: center;
 }
 
+#players-name-div {
+    display: flex;
+    column-gap: 50px;
+}
+
 #board-container {
     padding-top: 100px;
     display: grid;

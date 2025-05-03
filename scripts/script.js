@@ -222,6 +222,8 @@ let board = [
 
 
 
+
+
 //  allow players to put in their names, include a button to start/restart the game
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -285,6 +287,36 @@ function validateForm(player1name, player2name) {
 }
 
 
+function displayPlayerNames(player1name, player2name) {
+  
+ // const startBtn = document.querySelector("#start-btn");
+const mainContainer = document.querySelector("#main-container");
+
+
+  let playersNameDiv = document.querySelector("#players-name-div");
+
+  
+
+  // If the player names container doesn't exist, create it
+  if (!playersNameDiv) {
+      playersNameDiv = document.createElement("div");
+      playersNameDiv.setAttribute("id", "players-name-div");
+
+      const player1Div = document.createElement("div");
+      player1Div.setAttribute("id", "player1");
+      playersNameDiv.appendChild(player1Div);
+
+      const player2Div = document.createElement("div");
+      player2Div.setAttribute("id", "player2");
+      playersNameDiv.appendChild(player2Div);
+
+      mainContainer.insertBefore(playersNameDiv, brdContainer);
+  }
+
+  // Update the player names in the UI
+  playersNameDiv.querySelector("#player1").textContent = `Player 1: ${player1name}`;
+  playersNameDiv.querySelector("#player2").textContent = `Player 2: ${player2name}`;
+}
 
 
 
